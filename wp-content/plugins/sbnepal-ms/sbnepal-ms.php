@@ -43,34 +43,14 @@ include  'inc/class-sbnepal-ms-admin-menu.php';
 
 new SBNepal_MS_Admin_Menu();
 
+// Add custom fields
+include 'inc/agent/sbnepal-ms-agent-custom-fields.php';
 
-add_filter( "admin_footer_text" , "sbnepal_ms_custom_admin_footer" );
+include 'inc/agent/class-sbnepal-ms-agent-list-table.php';
+include 'inc/agent/class-sbnepal-ms-agent-functions.php';
 
-function sbnepal_ms_custom_admin_footer( $footer_text ) {
+include 'inc/sbnepal-ms-toolbar-menu.php';
 
-    if ( isset( $_GET[ "page" ] ) && strpos($_GET[ "page" ], 'sbnepal-ms') !== false ) {
+include 'inc/shortcodes/index.php';
 
-        $footer_text = __( 'Thanks for using the plugin. Made with <span style="color: #e25555;">♥</span> by <a href="https://raisachin.com.np" target="_blank" rel="nofollow">Sachin kiranti</a>.' );
-
-    }
-    return $footer_text;
-}
-
-include 'inc/shortcodes/sbnepal-ms-login-shortcode.php';
-include 'inc/shortcodes/sbnepal-ms-register-shortcode.php';
-include 'inc/shortcodes/sbnepal-ms-dashboard-shortcode.php';
-
-if ( ! function_exists('sb_dump') ) :
-
-    function sb_dump(){
-        $anything = func_get_args();
-
-        add_action('shutdown', function () use ($anything) {
-            echo "<pre>";
-            print_r($anything);
-            echo "</pre>";
-            exit;
-        });
-    }
-
-endif;
+include 'inc/sbnepal-ms-misc-functions.php';

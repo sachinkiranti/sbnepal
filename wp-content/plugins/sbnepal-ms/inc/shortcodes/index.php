@@ -1,5 +1,5 @@
 <?php
 
-include './sbnepal-ms-login-shortcode.php';
-include './sbnepal-ms-register-shortcode.php';
-include './sbnepal-ms-dashboard-shortcode.php';
+require dirname(__FILE__)  .'/sbnepal-ms-login-shortcode.php';
+require dirname(__FILE__)  .'/sbnepal-ms-register-shortcode.php';
+require dirname(__FILE__)  .'/sbnepal-ms-dashboard-shortcode.php';
