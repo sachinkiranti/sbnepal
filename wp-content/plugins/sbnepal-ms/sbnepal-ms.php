@@ -22,6 +22,17 @@ register_activation_hook( __FILE__, 'sbnepal_ms_db_init' );
 if ( ! function_exists('sbnepal_ms_db_init') ) :
 
     function sbnepal_ms_db_init() {
+
+        // Creating a agent role
+        add_role(
+            'agent', //  System name of the role.
+            __( 'Agent'  ), // Display name of the role.
+            array(
+                'read'  => true,
+                'upload_files'  => true,
+            )
+        );
+
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     }
 
@@ -44,6 +55,10 @@ function sbnepal_ms_custom_admin_footer( $footer_text ) {
     }
     return $footer_text;
 }
+
+include 'inc/shortcodes/sbnepal-ms-login-shortcode.php';
+include 'inc/shortcodes/sbnepal-ms-register-shortcode.php';
+include 'inc/shortcodes/sbnepal-ms-dashboard-shortcode.php';
 
 if ( ! function_exists('sb_dump') ) :
 
