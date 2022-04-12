@@ -6,6 +6,7 @@ if (! function_exists('sbnepal_ms_registration_form')) :
     function sbnepal_ms_registration_form() {
 
         $referralId = ! empty( $_POST['referral_id'] ) ? intval( $_POST['referral_id'] ) : '';
+        $phoneNumber = ! empty( $_POST['phone_number'] ) ? intval( $_POST['phone_number'] ) : '';
 
         ?>
         <p>
@@ -15,6 +16,18 @@ if (! function_exists('sbnepal_ms_registration_form')) :
                        id="referral_id"
                        name="referral_id"
                        value="<?php echo esc_attr( $referralId ); ?>"
+                       class="input"
+                />
+            </label>
+        </p>
+
+        <p>
+            <label for="phone_number"><?php esc_html_e( 'Phone Number', 'sb-nepal' ) ?><br/>
+                <input type="number"
+                       step="1"
+                       id="phone_number"
+                       name="phone_number"
+                       value="<?php echo esc_attr( $phoneNumber ); ?>"
                        class="input"
                 />
             </label>
@@ -30,6 +43,10 @@ if (! function_exists('sbnepal_ms_user_register')) :
     function sbnepal_ms_user_register( $user_id ) {
         if ( ! empty( $_POST['referral_id'] ) ) {
             update_user_meta( $user_id, 'referral_id', intval( $_POST['referral_id'] ) );
+        }
+
+        if ( ! empty( $_POST['phone_number'] ) ) {
+            update_user_meta( $user_id, 'phone_number', intval( $_POST['phone_number'] ) );
         }
     }
 
@@ -48,6 +65,7 @@ if (! function_exists('sbnepal_ms_admin_registration_form')) :
         }
 
         $referralId = ! empty( $_POST['referral_id'] ) ? intval( $_POST['referral_id'] ) : '';
+        $phoneNumber = ! empty( $_POST['phone_number'] ) ? intval( $_POST['phone_number'] ) : '';
 
         ?>
         <h3><?php esc_html_e( 'Personal Information', 'sbnepal-ms' ); ?></h3>
@@ -64,6 +82,22 @@ if (! function_exists('sbnepal_ms_admin_registration_form')) :
                            id="referral_id"
                            name="referral_id"
                            value="<?php echo esc_attr( $referralId ); ?>"
+                           class="regular-text"
+                    />
+                </td>
+            </tr>
+
+            <tr>
+                <th><label for="phone_number">
+                        <?php esc_html_e( 'Phone Number', 'sbnepal-ms' ); ?></label>
+                    <span class="description">
+                        <?php esc_html_e( '(required)', 'sbnepal-ms' ); ?></span></th>
+                <td>
+                    <input type="number"
+                           step="1"
+                           id="phone_number"
+                           name="phone_number"
+                           value="<?php echo esc_attr( $phoneNumber ); ?>"
                            class="regular-text"
                     />
                 </td>
@@ -89,6 +123,13 @@ if ( ! function_exists('sbnepal_ms_user_profile_update_errors') ) :
                     __( '<strong>Error</strong>: The referral id is required.', 'sbnepal-ms' )
             );
         }
+
+        if ( empty( $_POST['phone_number'] ) ) {
+            $errors->add(
+                'phone_number',
+                __( '<strong>Error</strong>: The phone number is required.', 'sbnepal-ms' )
+            );
+        }
     }
 endif;
 
@@ -107,6 +148,11 @@ if (! function_exists('sbnepal_ms_show_extra_profile_fields') ) :
             <tr>
                 <th><label for="referral_id"><?php esc_html_e( 'Referral ID', 'sbnepal-ms' ); ?></label></th>
                 <td><?php echo esc_html( get_the_author_meta( 'referral_id', $user->ID ) ); ?></td>
+            </tr>
+
+            <tr>
+                <th><label for="phone_number"><?php esc_html_e( 'Phone Number', 'sbnepal-ms' ); ?></label></th>
+                <td><?php echo esc_html( get_the_author_meta( 'phone_number', $user->ID ) ); ?></td>
             </tr>
         </table>
         <?php

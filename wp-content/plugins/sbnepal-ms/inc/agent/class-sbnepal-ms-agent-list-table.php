@@ -15,7 +15,12 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             'plural'   => 'agents',
             'ajax'     => false
         ) );
+
+        if ($_GET['page'] !== 'sbnepal-ms-agent') {
+            $this->_actions = '';
+        }
     }
+
 
     function get_table_classes() {
         return array( 'widefat', 'fixed', 'striped', $this->_args['plural'] );
@@ -41,7 +46,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
     function column_default( $item, $column_name ) {
         switch ( $column_name ) {
             case 'referral_id':
-                return $item->referral_id;
+                return esc_html( get_the_author_meta( 'referral_id', $item->ID ) );
 
             case 'father_name':
                 return $item->father_name;
@@ -49,8 +54,8 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             case 'email':
                 return $item->user_email;
 
-            case 'phone':
-                return $item->phone;
+            case 'phone_number':
+                return esc_html( get_the_author_meta( 'phone_number', $item->ID ) );
 
             case 'passport_size_image':
                 return $item->passport_size_image;
@@ -66,18 +71,30 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
         }
     }
 
+
     function column_referral_id( $item ) {
 
         $actions           = array();
 
-        $actions['edit']   = sprintf(
-            '<a href="%s" data-id="%d" title="%s">%s</a>',
-            admin_url( 'admin.php?page=sbnepal-ms-agent&action=edit&id=' . $item->id ),
-            $item->id, __( 'Edit this item', 'sbnepal-ms' ),
-            __( 'Edit', 'sbnepal-ms' )
-        );
+        $actionWrapper     = null;
 
-        return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'admin.php?page=prasadi-result-sys&action=view&id=' . $item->id ), $item->symbol_number, $this->row_actions( $actions ) );
+        if ($_GET['page'] === 'sbnepal-ms-agent') {
+            $actions['edit']   = sprintf(
+                '<a href="%s" data-id="%d" title="%s">%s</a>',
+                admin_url( 'admin.php?page=sbnepal-ms-agent&action=edit&id=' . $item->id ),
+                $item->id, __( 'Edit this item', 'sbnepal-ms' ),
+                __( 'Edit', 'sbnepal-ms' )
+            );
+
+            $actionWrapper     = sprintf(
+                '<a href="%1$s"><strong>%2$s</strong></a> %3$s',
+                admin_url( 'admin.php?page=prasadi-result-sys&action=view&id=' . $item->id ),
+                $item->symbol_number,
+                $this->row_actions( $actions )
+            );
+        }
+
+        return esc_html( get_the_author_meta( 'referral_id', $item->ID ) ) . $actionWrapper;
     }
 
     /**
@@ -90,7 +107,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             'cb'           => '<input type="checkbox" />',
             'referral_id'      => __( 'Referral ID', 'sbnepal-ms' ),
             'email'      => __( 'Email Address', 'sbnepal-ms' ),
-            'phone'      => __( 'Phone', 'sbnepal-ms' )
+            'phone_number' => __( 'Phone', 'sbnepal-ms' )
         );
     }
 

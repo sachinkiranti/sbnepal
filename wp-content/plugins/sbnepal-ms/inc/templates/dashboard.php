@@ -112,11 +112,21 @@
     <p>If you have posts or comments in another system, WordPress can import those into this site. To get started,
         choose a system to import from below:</p>
 
-    <div class="card">
-        <h2 class="title">SBNepal Management System</h2>
-        <p>
-            If you want to convert your categories to tags (or vice versa), use the <a href="import.php">Categories and
-                Tags Converter</a> available from the Import screen. </p>
+    <div id="dashboard-widgets-wrap">
+        <div id="postbox-container-1" class="postbox-container">
+            <div class="card">
+                <h2 class="title">Total Commissions Earned</h2>
+                <p>NRS. 10000</p>
+            </div>
+        </div>
+
+        <div id="postbox-container-2" class="postbox-container">
+            <div class="card">
+                <h2 class="title">Today</h2>
+
+                <p>NRS. 10000</p>
+            </div>
+        </div>
     </div>
 
     <div class="dashboard-widgets-wrap">
@@ -124,34 +134,10 @@
             <div class="postbox-container">
                 <div id="dashboard_activity" class="postbox ">
                     <div class="postbox-header"><h2 class="hndle ui-sortable-handle">Activity</h2>
-                        <div class="handle-actions hide-if-no-js">
-                            <button type="button" class="handle-order-higher" aria-disabled="false"
-                                    aria-describedby="dashboard_activity-handle-order-higher-description"><span
-                                        class="screen-reader-text">Move up</span><span class="order-higher-indicator"
-                                                                                       aria-hidden="true"></span>
-                            </button>
-                            <span class="hidden" id="dashboard_activity-handle-order-higher-description">Move Activity box up</span>
-                            <button type="button" class="handle-order-lower" aria-disabled="false"
-                                    aria-describedby="dashboard_activity-handle-order-lower-description"><span
-                                        class="screen-reader-text">Move down</span><span class="order-lower-indicator"
-                                                                                         aria-hidden="true"></span>
-                            </button>
-                            <span class="hidden" id="dashboard_activity-handle-order-lower-description">Move Activity box down</span>
-                            <button type="button" class="handlediv" aria-expanded="true"><span
-                                        class="screen-reader-text">Toggle panel: Activity</span><span
-                                        class="toggle-indicator" aria-hidden="true"></span></button>
-                        </div>
                     </div>
                     <div class="inside">
                         <div id="activity-widget">
-                            <div id="published-posts" class="activity-block"><h3>Recently Published</h3>
-                                <ul>
-                                    <li><span>Today, 5:28 am</span> <a
-                                                href="http://sbnepal.web/wp-admin/post.php?post=1&amp;action=edit"
-                                                aria-label="Edit “Hello world!”">Hello world!</a></li>
-                                </ul>
-                            </div>
-                            <div id="latest-comments" class="activity-block table-view-list"><h3>Recent Comments</h3>
+                            <div id="latest-comments" class="activity-block table-view-list">
                                 <ul id="the-comment-list" data-wp-lists="list:comment">
                                     <li id="comment-1" class="comment even thread-even depth-1 comment-item approved">
 
@@ -215,157 +201,10 @@
                                     </li>
                                     <li class="mine"><a
                                                 href="http://sbnepal.web/wp-admin/edit-comments.php?comment_status=mine&amp;user_id=1">Mine
-                                            <span class="count">(<span class="mine-count">0</span>)</span></a> |
+                                            <span class="count">(<span class="mine-count">0</span>)</span></a>
                                     </li>
-                                    <li class="moderated"><a
-                                                href="http://sbnepal.web/wp-admin/edit-comments.php?comment_status=moderated">Pending
-                                            <span class="count">(<span class="pending-count">0</span>)</span></a> |
-                                    </li>
-                                    <li class="approved"><a
-                                                href="http://sbnepal.web/wp-admin/edit-comments.php?comment_status=approved">Approved
-                                            <span class="count">(<span class="approved-count">1</span>)</span></a> |
-                                    </li>
-                                    <li class="spam"><a
-                                                href="http://sbnepal.web/wp-admin/edit-comments.php?comment_status=spam">Spam
-                                            <span class="count">(<span class="spam-count">0</span>)</span></a> |
-                                    </li>
-                                    <li class="trash"><a
-                                                href="http://sbnepal.web/wp-admin/edit-comments.php?comment_status=trash">Trash
-                                            <span class="count">(<span class="trash-count">0</span>)</span></a></li>
                                 </ul>
-                                <form method="get">
-                                    <div id="com-reply" style="display:none;">
-                                        <div id="replyrow" style="display:none;">
-                                            <fieldset class="comment-reply">
-                                                <legend>
-                                                    <span class="hidden" id="editlegend">Edit Comment</span>
-                                                    <span class="hidden" id="replyhead">Reply to Comment</span>
-                                                    <span class="hidden" id="addhead">Add new Comment</span>
-                                                </legend>
 
-                                                <div id="replycontainer">
-                                                    <label for="replycontent" class="screen-reader-text">Comment</label>
-                                                    <div id="wp-replycontent-wrap"
-                                                         class="wp-core-ui wp-editor-wrap html-active">
-                                                        <link rel="stylesheet" id="editor-buttons-css"
-                                                              href="http://sbnepal.web/wp-includes/css/editor.min.css?ver=5.9.3"
-                                                              media="all">
-                                                        <div id="wp-replycontent-editor-container"
-                                                             class="wp-editor-container">
-                                                            <div id="qt_replycontent_toolbar"
-                                                                 class="quicktags-toolbar hide-if-no-js"><input
-                                                                        type="button" id="qt_replycontent_strong"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Bold" value="b"><input type="button"
-                                                                                                           id="qt_replycontent_em"
-                                                                                                           class="ed_button button button-small"
-                                                                                                           aria-label="Italic"
-                                                                                                           value="i"><input
-                                                                        type="button" id="qt_replycontent_link"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Insert link" value="link"><input
-                                                                        type="button" id="qt_replycontent_block"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Blockquote" value="b-quote"><input
-                                                                        type="button" id="qt_replycontent_del"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Deleted text (strikethrough)"
-                                                                        value="del"><input type="button"
-                                                                                           id="qt_replycontent_ins"
-                                                                                           class="ed_button button button-small"
-                                                                                           aria-label="Inserted text"
-                                                                                           value="ins"><input
-                                                                        type="button" id="qt_replycontent_img"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Insert image" value="img"><input
-                                                                        type="button" id="qt_replycontent_ul"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Bulleted list" value="ul"><input
-                                                                        type="button" id="qt_replycontent_ol"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Numbered list" value="ol"><input
-                                                                        type="button" id="qt_replycontent_li"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="List item" value="li"><input
-                                                                        type="button" id="qt_replycontent_code"
-                                                                        class="ed_button button button-small"
-                                                                        aria-label="Code" value="code"><input
-                                                                        type="button" id="qt_replycontent_close"
-                                                                        class="ed_button button button-small"
-                                                                        title="Close all open tags" value="close tags">
-                                                            </div>
-                                                            <textarea class="wp-editor-area" rows="20" cols="40"
-                                                                      name="replycontent" id="replycontent"></textarea>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div id="edithead" style="display:none;">
-                                                    <div class="inside">
-                                                        <label for="author-name">Name</label>
-                                                        <input type="text" name="newcomment_author" size="50" value=""
-                                                               id="author-name">
-                                                    </div>
-
-                                                    <div class="inside">
-                                                        <label for="author-email">Email</label>
-                                                        <input type="text" name="newcomment_author_email" size="50"
-                                                               value="" id="author-email">
-                                                    </div>
-
-                                                    <div class="inside">
-                                                        <label for="author-url">URL</label>
-                                                        <input type="text" id="author-url" name="newcomment_author_url"
-                                                               class="code" size="103" value="">
-                                                    </div>
-                                                </div>
-
-                                                <div id="replysubmit" class="submit">
-                                                    <p class="reply-submit-buttons">
-                                                        <button type="button" class="save button button-primary">
-                                                            <span id="addbtn" style="display: none;">Add Comment</span>
-                                                            <span id="savebtn"
-                                                                  style="display: none;">Update Comment</span>
-                                                            <span id="replybtn"
-                                                                  style="display: none;">Submit Reply</span>
-                                                        </button>
-                                                        <button type="button" class="cancel button">Cancel</button>
-                                                        <span class="waiting spinner"></span>
-                                                    </p>
-                                                    <div class="notice notice-error notice-alt inline hidden">
-                                                        <p class="error"></p>
-                                                    </div>
-                                                </div>
-
-                                                <input type="hidden" name="action" id="action" value="">
-                                                <input type="hidden" name="comment_ID" id="comment_ID" value="">
-                                                <input type="hidden" name="comment_post_ID" id="comment_post_ID"
-                                                       value="">
-                                                <input type="hidden" name="status" id="status" value="">
-                                                <input type="hidden" name="position" id="position" value="-1">
-                                                <input type="hidden" name="checkbox" id="checkbox" value="0">
-                                                <input type="hidden" name="mode" id="mode" value="dashboard">
-                                                <input type="hidden" id="_ajax_nonce-replyto-comment"
-                                                       name="_ajax_nonce-replyto-comment" value="8c035b7259"><input
-                                                        type="hidden" id="_wp_unfiltered_html_comment"
-                                                        name="_wp_unfiltered_html_comment" value="500d767b60">
-                                            </fieldset>
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="hidden" id="trash-undo-holder">
-                                    <div class="trash-undo-inside">
-                                        Comment by <strong></strong> moved to the Trash. <span class="undo untrash"><a
-                                                    href="#">Undo</a></span>
-                                    </div>
-                                </div>
-                                <div class="hidden" id="spam-undo-holder">
-                                    <div class="spam-undo-inside">
-                                        Comment by <strong></strong> marked as spam. <span class="undo unspam"><a
-                                                    href="#">Undo</a></span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

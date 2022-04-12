@@ -9,8 +9,8 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
 
         public function admin_menu() {
             add_menu_page(
-                __( 'SBNepal MS', 'sbnepal-ms' ),
-                __( 'SBNepal MS', 'sbnepal-ms' ),
+                __( 'Smart Business In Nepal', 'sbnepal-ms' ),
+                __( 'Smart Business In Nepal', 'sbnepal-ms' ),
                 'activate_plugins',
                 'sbnepal-ms',
                 array( $this, 'resolve_dashboard_view' ),

@@ -5,7 +5,7 @@ if (! function_exists('sbnepal_ms_toolbar_link')) :
     function sbnepal_ms_toolbar_link($wp_admin_bar) {
         $args = array(
             'id' => 'sbnepal_ms',
-            'title' => 'SBNepal MS',
+            'title' => 'Smart Business In Nepal',
             'href' => admin_url( "admin.php?page=sbnepal-ms" ),
             'meta' => array(
                 'class' => 'sbnepal_ms',
