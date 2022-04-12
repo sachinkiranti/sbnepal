@@ -63,12 +63,22 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td style="cursor:pointer;"><code>[sbnepal-ms-login title="Login" register="/register"]</code></td>
+                                <td style="cursor:pointer;">
+                                    <small><code>[sbnepal-ms-login title="Login" register="/register"]</code></small>
+                                </td>
                                 <td>Login Form</td>
                             </tr>
                             <tr>
-                                <td style="cursor:pointer;"><code>[sbnepal-ms-register title="Register" register="/login"]</code></td>
+                                <td style="cursor:pointer;">
+                                    <small><code>[sbnepal-ms-register title="Register" register="/login"]</code></small>
+                                </td>
                                 <td>Register Form</td>
+                            </tr>
+                            <tr>
+                                <td style="cursor:pointer;">
+                                    <small><code>[sbnepal-ms-guest title="SBNepal" login="/login" register="/register"]</code></small>
+                                </td>
+                                <td>Guest Form</td>
                             </tr>
                         </tbody>
                     </table>
