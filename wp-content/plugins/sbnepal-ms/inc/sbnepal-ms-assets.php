@@ -16,9 +16,16 @@ if ( ! function_exists('sbnepal_ms_register_enqueue_scripts') ) :
             '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js'
         );
 
+        wp_enqueue_script( 'boot4-popper-js',
+            'https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js',
+            array( 'jquery' ),
+            '',
+            true
+        );
+
         wp_enqueue_script( 'boot4-js',
             'https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js',
-            array( 'jquery' ),
+            array( 'jquery', 'boot4-popper-js' ),
             '',
             true
         );
