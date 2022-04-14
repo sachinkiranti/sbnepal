@@ -283,6 +283,36 @@ if (! function_exists('sbnepal_ms_show_extra_profile_fields') ) :
     }
 endif;
 
+# Adding a custom field column at USER table
+
+if (! function_exists('sbnepal_ms_modify_user_columns')) :
+
+    function sbnepal_ms_modify_user_columns($column_headers) {
+        $column_headers['refer_id'] = 'Refer ID';
+        $column_headers['referral_id'] = 'Referral ID';
+        return $column_headers;
+    }
+
+endif;
+
+add_filter('manage_users_columns', 'sbnepal_ms_modify_user_columns');
+
+if (! function_exists('sbnepal_ms_modified_columns')) :
+
+    function sbnepal_ms_modified_columns( $value, $column_name, $user_id ) {
+        if ( 'refer_id' === $column_name ) {
+            return hexdec(uniqid() + mt_rand(1000, 9999));
+        } elseif ('referral_id' === $column_name) {
+            return hexdec(uniqid() + mt_rand(1000, 9999));
+        } else {
+            return $value;
+        }
+    }
+
+endif;
+
+add_action( 'manage_users_custom_column', 'sbnepal_ms_modified_columns', 10, 3 );
+
 // Adding custom css to user-new hook
 //add_action('admin_enqueue_scripts', function ($hook) {
 //    custom_dump($hook);

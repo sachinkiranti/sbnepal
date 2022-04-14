@@ -2,6 +2,9 @@
     var $sbNepal = jQuery.noConflict()
 
     $sbNepal(window).load( function() {
+
+        $sbNepal('[data-toggle="tooltip"]').tooltip();
+
         var $sbNepalForm = $sbNepal("#sbnepal-ms-form-register");
 
         $sbNepalForm.submit( function (e) {
@@ -56,7 +59,8 @@
 
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="referral_id">Referral ID</label>
+                    <label for="referral_id">Referral ID(required)</label>
+                    <a class="pull-right" data-toggle="tooltip" title="Referral ID is mandatory as you should be registered only when you are referred by someone." style="text-decoration: underline;float: right;cursor:pointer;">?</a>
                     <input type="text" name="referral_id" placeholder="Enter the referral id"  class="form-control" id="referral_id" value="<?php echo esc_attr($_GET['referral_id']); ?>" required>
 
                     <div class="invalid-feedback referral_id-error"></div>
@@ -71,14 +75,14 @@
 
                 <div class="form-group">
                     <label for="fatherName">Father Name</label>
-                    <input type="text" name="name" placeholder="Enter the father name"  class="form-control" id="fatherName" required>
+                    <input type="text" name="father_name" placeholder="Enter the father name"  class="form-control" id="fatherName" required>
 
-                    <div class="invalid-feedback name-error"></div>
+                    <div class="invalid-feedback father_name-error"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" name="name" placeholder="Enter the address"  class="form-control" id="address" required>
+                    <input type="text" name="address" placeholder="Enter the address"  class="form-control" id="address" required>
 
                     <div class="invalid-feedback address-error"></div>
                 </div>
@@ -92,6 +96,8 @@
 
                 <div class="form-group">
                     <label for="qualification">Qualification</label>
+                    <a class="pull-right" data-toggle="tooltip" title="Qualification ?" style="text-decoration: underline;float: right;cursor:pointer;">?</a>
+
                     <input type="text" name="qualification" placeholder="Enter the qualification"  class="form-control" id="qualification" required>
 
                     <div class="invalid-feedback qualification-error"></div>
@@ -106,16 +112,16 @@
 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="number" name="phone" placeholder="Enter the phone number"  class="form-control" id="phone" required>
+                    <input type="number" name="phone_number" placeholder="Enter the phone number"  class="form-control" id="phone" required>
 
-                    <div class="invalid-feedback phone-error"></div>
+                    <div class="invalid-feedback phone_number-error"></div>
                 </div>
             </div>
 
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="pp_size_photo">PP Size Clear Photo</label>
-                    <input type="file" data-max-file-size-preview="2M" data-max-file-size="2M" data-allowed-file-extensions="png jpeg jpg" name="pp_size_photo" class="form-control dropify sbnepal-ms-dropify" id="pp_size_photo" required>
+                    <input type="file" data-max-file-size-preview="2M" data-max-file-size="2M" data-allowed-file-extensions="png jpeg jpg" name="passport_size_photo" class="form-control dropify sbnepal-ms-dropify" id="pp_size_photo" required>
 
                     <div class="invalid-feedback pp_size_photo-error"></div>
                 </div>
@@ -129,7 +135,7 @@
 
                 <div class="form-group">
                     <label for="signature">Signature</label>
-                    <input type="file" data-max-file-size-preview="2M" data-max-file-size="2M" data-allowed-file-extensions="png jpeg jpg" name="signature" class="form-control dropify sbnepal-ms-dropify" id="signature" required>
+                    <input type="file" data-max-file-size-preview="2M" data-max-file-size="2M" data-allowed-file-extensions="png jpeg jpg" name="signature_photo" class="form-control dropify sbnepal-ms-dropify" id="signature" required>
 
                     <div class="invalid-feedback signature-error"></div>
                 </div>

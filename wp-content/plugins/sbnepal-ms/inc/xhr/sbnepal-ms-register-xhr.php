@@ -46,10 +46,16 @@ if ( ! function_exists('sbnepal_ms_resolve_register_data') ) :
         foreach ( $formData as $column => $value ) {
             $value = stripslashes( $value );
 
-            if(! $value ) {
-                $error[$column] = "Please enter your ". str_replace( '_', ' ', $column ) . '.';
+            if ($column === 'email') {
+                if (email_exists($value)) {
+                    $error[$column] = "The email address should be unique.";
+                }
             } else {
-                $data[$column]  = $value;
+                if(! $value ) {
+                    $error[$column] = "Please enter your ". str_replace( '_', ' ', $column ) . '.';
+                } else {
+                    $data[$column]  = $value;
+                }
             }
         }
 
@@ -58,37 +64,21 @@ if ( ! function_exists('sbnepal_ms_resolve_register_data') ) :
                 'errors' => $error,
                 'status' => 'validation',
             ), false );
+
+            return false;
         }
 
         $email = sanitize_text_field( $data['email'] );
         $password = sanitize_text_field( $data['password'] );
-        $remember = sanitize_text_field( $data['remember_me'] );
-
-
-        $login = wp_login( $email, $password );
-        $login = wp_signon( array(
-            'user_login'        => $email,
-            'user_password'     => $password,
-            'remember'          => $remember
-        ), false );
-
-        if ( $login->ID ) {
-
-            $file_path = dirname(__FILE__) . '/templates/frontend/register/sbnepal-ms-frontend-register-response.php';
-
-            ob_start();
-
-            include($file_path);
-
-            $html = ob_get_contents();
-            ob_end_clean();
-
-            sbnepal_ms_response( array(
-                'view'   => $html,
-                'url'    => home_url('account'),
-                'status' => 'success',
-            ) );
-        }
+        $referralId = sanitize_text_field( $data['referral_id'] );
+        $name = sanitize_text_field( $data['name'] );
+        $fatherName = sanitize_text_field( $data['father_name'] );
+        $address = sanitize_text_field( $data['address'] );
+        $citizenshipNo = sanitize_text_field( $data['citizenship_no'] );
+        $qualification = sanitize_text_field( $data['qualification'] );
+        $phoneNumber = sanitize_text_field( $data['phone_number'] );
+        $password = sanitize_text_field( $data['password'] );
+        $passwordConfirmation = sanitize_text_field( $data['password_confirmation'] );
     }
 
 endif;

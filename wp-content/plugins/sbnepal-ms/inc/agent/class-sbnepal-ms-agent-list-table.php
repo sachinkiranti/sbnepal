@@ -48,6 +48,15 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             case 'referral_id':
                 return esc_html( get_the_author_meta( 'referral_id', $item->ID ) );
 
+            case 'refer_id':
+                return esc_html( get_the_author_meta( 'refer_id', $item->ID ) );
+
+            case 'action':
+                if (esc_html( get_the_author_meta( 'is_activated_by_admin', $item->ID ) )) {
+                    return 'Active';
+                }
+                return '<a class="button action" href="">Activate</a>';
+
             case 'father_name':
                 return $item->father_name;
 
@@ -108,7 +117,14 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
     function get_columns() {
         $columns = array ();
 
-        if ($_GET['page'] !== 'sbnepal-ms-agent') {
+        if ($_GET['page'] === 'sbnepal-ms-agent') {
+            $columns = array(
+                'commission' => __( 'Commission', 'sbnepal-ms' ),
+                'action'        => __("Action", "sbnepal-ms")
+            );
+        }
+
+        if ($_GET['page'] === 'sbnepal-ms-wallet') {
             $columns = array(
                 'commission' => __( 'Commission', 'sbnepal-ms' )
             );
@@ -118,7 +134,8 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             'cb'           => '<input type="checkbox" />',
             'referral_id'      => __( 'Referral ID', 'sbnepal-ms' ),
             'email'      => __( 'Email Address', 'sbnepal-ms' ),
-            'phone_number' => __( 'Phone', 'sbnepal-ms' )
+            'phone_number' => __( 'Phone', 'sbnepal-ms' ),
+            'refer_id'      => __('Refer ID', 'sbnepal_ms')
         ), $columns);
     }
 
