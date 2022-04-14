@@ -10,7 +10,8 @@ if ( ! function_exists('sbnepal_ms_dashboard_shortcode') ) :
         extract( shortcode_atts(
             array(
                 'title'        => 'Agent Dashboard',
-                'login'        => '/login'
+                'login'        => '/login',
+                'register'     => '/register'
             ), $atts )
         );
 
