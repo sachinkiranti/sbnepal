@@ -10,9 +10,15 @@ if ( ! function_exists('sbnepal_ms_register_shortcode') ) :
         extract( shortcode_atts(
             array(
                 'title'        => 'Login Panel',
-                'login' => null
+                'login' => null,
+                'dashboard' => '/dashboard'
             ), $atts )
         );
+
+        // If already logged in redirect to dashboard
+        if ( is_user_logged_in() ) {
+            wp_redirect($dashboard);
+        }
 
         $file_path = dirname(__FILE__) . '/../templates/frontend/register/sbnepal-ms-frontend-register.php';
 

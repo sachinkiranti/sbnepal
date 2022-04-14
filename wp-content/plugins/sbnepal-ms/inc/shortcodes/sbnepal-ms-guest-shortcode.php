@@ -12,9 +12,15 @@ if ( ! function_exists('sbnepal_ms_guest_shortcode') ) :
                     'title'        => 'Smart Business In Nepal',
                     'tagline'      => 'Quality Businesses is our comment',
                     'register' => null,
-                    'login' => null
+                    'login' => null,
+                    'dashboard'    => '/dashboard',
                 ), $atts )
         );
+
+        // If already logged in redirect to dashboard
+        if ( is_user_logged_in() ) {
+            wp_redirect($dashboard);
+        }
 
         $file_path = dirname(__FILE__) . '/../templates/frontend/sbnepal-ms-frontend-guest.php';
 

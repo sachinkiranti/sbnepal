@@ -9,9 +9,15 @@ if ( ! function_exists('sbnepal_ms_dashboard_shortcode') ) :
 
         extract( shortcode_atts(
             array(
-                'title'        => 'Agent Dashboard'
+                'title'        => 'Agent Dashboard',
+                'login'        => '/login'
             ), $atts )
         );
+
+        // If user is not logged in redirect to login
+        if ( !is_user_logged_in() ) {
+            wp_redirect($login);
+        }
 
         $file_path = dirname(__FILE__) . '/../templates/frontend/dashboard/sbnepal-ms-frontend-dashboard.php';
 
