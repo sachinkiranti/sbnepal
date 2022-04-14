@@ -1,22 +1,33 @@
 <script>
     $sbNepal = jQuery.noConflict()
 
-    $sbNepal(document).on('click', '.sbnepal-ms-copy-referral-id',  function (e) {
-        e.preventDefault()
+    $sbNepal(function () {
 
-        var $this = $sbNepal(this)
+        $sbNepal('[data-toggle="tooltip"]').tooltip();
 
-        var $temp = $sbNepal("<input>");
-        $sbNepal("body").append($temp);
-        $temp.val($this.data('referralId')).select();
-        document.execCommand("copy");
-        $temp.remove();
+        $sbNepal(document).on('click', '.sbnepal-ms-copy-referral-id',  function (e) {
+            e.preventDefault()
 
-        $this.find('.badge').html('COPIED')
+            var $this = $sbNepal(this),
+                referralId = $this.data('referralId');
 
-        setTimeout(function () {
-            $this.find('.badge').html('Referral ID')
-        }, 1000)
+            if (e.ctrlKey) {
+                referralId = $this.data('registerUrl') + "?referral_id=" + referralId
+            }
+
+            var $temp = $sbNepal("<input>");
+            $sbNepal("body").append($temp);
+            $temp.val(referralId).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            $this.find('.badge').html('COPIED')
+
+            setTimeout(function () {
+                $this.find('.badge').html('Referral ID')
+            }, 1000)
+        })
+
     })
 </script>
 <div class="row">
@@ -30,11 +41,19 @@
 
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <small class="card-title">Total Commissions Earned</small>
+                    <small class="card-title">
+                        Total Commissions Earned
+                        <a class="pull-right" data-toggle="tooltip"
+                              title="Shortcuts : `CTRL + Click` to copy whole url else `click` to get only the referral ID."
+                              style="text-decoration: underline;float: right;cursor:pointer;">?</a>
+                    </small>
                     <p class="card-text">
                         NRS. <?php echo number_format(10000); ?>
                     </p>
-                    <a href="javascript:void" data-referral-id="21221121" class="card-link sbnepal-ms-copy-referral-id" title="Referral ID">
+                    <a href="javascript:void" data-referral-id="21221121"
+                       data-register-url="<?php echo home_url($register); ?>"
+                       class="card-link sbnepal-ms-copy-referral-id"
+                       title="Referral ID">
                         21221121
                         <span class="badge badge-secondary">Referral ID</span>
                     </a>
@@ -46,28 +65,62 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Referred</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Commission Generated</th>
+                    <th scope="col">Registered</th>
+                    <th scope="col">Status</th>
                 </tr>
                 </thead>
                 <tbody>
+
+                <?php
+                $userData = get_userdata( get_current_user_id() );
+                ?>
+
                 <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td><?php echo mt_rand(1, 5); ?></td>
+                    <td class="total-commission-generated">NRS. <?php echo array(150, 50, 25, 10)[mt_rand(0, 3)]; ?></td>
+                    <td>
+                        <small>
+                            <?php printf( '%s member since %s<br>', $userData->data->display_name, date( "M Y", strtotime( $userData->user_registered ) ) ); ?>
+                        </small>
+                    </td>
+
+                    <?php $user1Index = mt_rand(0, 1); ?>
+
+                    <td>
+                        <span class="badge badge-<?php echo $user1Index ? 'primary' : 'danger'; ?>"><?php echo $user1Index ? 'Active' : 'Inactive'; ?></span>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
+                    <td><?php echo mt_rand(1, 5); ?></td>
+                    <td class="total-commission-generated">NRS. <?php echo array(150, 50, 25, 10)[mt_rand(0, 3)]; ?></td>
+                    <td>
+                        <small>
+                            <?php printf( '%s member since %s<br>', $userData->data->display_name, date( "M Y", strtotime( $userData->user_registered ) ) ); ?>
+                        </small>
+                    </td>
+                    <?php $user2Index = mt_rand(0, 1); ?>
+
+                    <td>
+                        <span class="badge badge-<?php echo $user2Index ? 'primary' : 'danger'; ?>"><?php echo $user2Index ? 'Active' : 'Inactive'; ?></span>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
+                    <td><?php echo mt_rand(1, 5); ?></td>
+                    <td class="total-commission-generated">NRS. <?php echo array(150, 50, 25, 10)[mt_rand(0, 3)]; ?></td>
+                    <td>
+                        <small>
+                            <?php printf( '%s member since %s<br>', $userData->data->display_name, date( "M Y", strtotime( $userData->user_registered ) ) ); ?>
+                        </small>
+                    </td>
+                    <?php $user3Index = mt_rand(0, 1); ?>
+
+                    <td>
+                        <span class="badge badge-<?php echo $user3Index ? 'primary' : 'danger'; ?>"><?php echo $user3Index ? 'Active' : 'Inactive'; ?></span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
