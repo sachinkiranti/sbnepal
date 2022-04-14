@@ -28,7 +28,7 @@ if( ! wp_verify_nonce($_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-register') ) 
     ), false );
 
 }
-sleep(5);
+
 if ( ! function_exists('sbnepal_ms_resolve_setting_data') ) :
 
     function sbnepal_ms_resolve_setting_data ( $formData ) {

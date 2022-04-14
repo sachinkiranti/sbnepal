@@ -42,6 +42,19 @@
                             <input type="number" value="<?php echo get_option("sbnepal-ms_fourth_level_commission", 10) ?>" placeholder="Enter the Fourth Level Commission" name="sbnepal-ms_fourth_level_commission" id="sbnepal-ms_fourth_level_commission" autocomplete="off" style="width: 100%;">
                         </div>
 
+                        <div class="textarea-wrap" id="description-wrap">
+                            <label for="content" style="display: inline-block;margin-bottom: 4px;">
+                                Email Template [Event : When agent is activated.] <br>
+                                Available Patterns :
+                                <code style="color: #0a4b78;">{%AGENT_NAME%}</code>
+                                <code style="color: #0a4b78;">{%AGENT_REFER_ID%}</code>
+                                <code style="color: #0a4b78;">{%AGENT_PASSWORD%}</code>
+                            </label>
+                            <textarea style="width: 100%;" name="sbnepal-ms_agent_activation_email_template" id="sbnepal_ms_agent_activation_email_template"
+                                      placeholder="Write email template for agent activation." class="mceEditor"
+                                      rows="3" cols="15" autocomplete="off"><?php echo get_option("sbnepal-ms_agent_activation_email_template") ?></textarea>
+                        </div>
+
                         <p>
                             <input type="submit" name="save" id="save-post" class="button button-primary" value="Update">
                             <br class="clear">
