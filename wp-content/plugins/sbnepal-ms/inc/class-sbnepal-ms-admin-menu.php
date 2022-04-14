@@ -45,7 +45,8 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
                 array( $this, 'resolve_wallet_view' )
             );
 
-            add_submenu_page(
+            //  smart-business-in-nepal_page_sbnepal-ms-setting
+            $s = add_submenu_page(
                 'sbnepal-ms',
                 __( 'Setting', 'sbnepal-ms' ),
                 __( 'Setting', 'sbnepal-ms' ),
@@ -53,7 +54,7 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
                 'sbnepal-ms-setting',
                 array( $this, 'resolve_setting_view' )
             );
-
+//            custom_dump($s);
         }
 
         public function resolve_views() {
@@ -86,6 +87,8 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
 
         public function resolve_setting_view()
         {
+            global $sbNepalBaseDir;
+
             $template = dirname( __FILE__ ) . '/templates/setting/index.php';
             if ( file_exists( $template ) ) {
                 include $template;
@@ -119,3 +122,19 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
     }
 
 }
+
+// Adding toastr to setting sb page
+add_action("admin_print_styles-smart-business-in-nepal_page_sbnepal-ms-setting", function () {
+    wp_enqueue_style(
+        'sbnepal_ms-toastr-css',
+        "//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    );
+});
+
+add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-setting", function () {
+    wp_enqueue_script(
+        'sbnepal_ms-toastr-js',
+        '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
+        array( 'jquery' )
+    );
+});

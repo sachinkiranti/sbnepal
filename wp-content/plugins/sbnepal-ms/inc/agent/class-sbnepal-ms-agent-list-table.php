@@ -66,6 +66,9 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             case 'signature_image':
                 return $item->signature_image;
 
+            case 'commission':
+                return 'NRS. '. mt_rand(100, 400);
+
             default:
                 return isset( $item->$column_name ) ? $item->$column_name : '';
         }
@@ -103,12 +106,20 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
      * @return array
      */
     function get_columns() {
-        return array(
+        $columns = array ();
+
+        if ($_GET['page'] !== 'sbnepal-ms-agent') {
+            $columns = array(
+                'commission' => __( 'Commission', 'sbnepal-ms' )
+            );
+        }
+
+        return array_merge(array(
             'cb'           => '<input type="checkbox" />',
             'referral_id'      => __( 'Referral ID', 'sbnepal-ms' ),
             'email'      => __( 'Email Address', 'sbnepal-ms' ),
             'phone_number' => __( 'Phone', 'sbnepal-ms' )
-        );
+        ), $columns);
     }
 
     /**

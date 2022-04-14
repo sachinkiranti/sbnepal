@@ -1,4 +1,4 @@
-<div class="wrap">
+<div class="wrap sbnepal-ms-settings-wrapper">
 
     <h2><?php _e( 'Setting', 'sbnepal-ms' ); ?></h2>
 
@@ -11,27 +11,35 @@
                     </h2>
                 </div>
                 <div class="inside">
-                    <form name="post" action="" method="post" style="padding-top: 10px">
-                        <div class="input-text-wrap" id="title-wrap">
-                            <label for="title" style="display: inline-block;margin-bottom: 4px;">
-                                Title
+                    <form data-action-url="<?php echo $sbNepalBaseDir; ?>inc/xhr/sbnepal-ms-setting-xhr.php" id="sbNepalMsSettingForm" action="" method="post" style="padding-top: 10px">
+
+                        <?php wp_nonce_field('wps-frontend-sbnepal-ms-register') ?>
+                        <div class="input-text-wrap" id="sbnepal-ms_first_level_commission-wrap">
+                            <label for="sbnepal-ms_first_level_commission" style="display: inline-block;margin-bottom: 4px;">
+                                First Level Commission
                             </label>
-                            <input type="text" name="post_title" id="title" autocomplete="off" style="width: 100%;">
+                            <input type="number" value="<?php echo get_option("sbnepal-ms_first_level_commission", 150) ?>" placeholder="Enter the First Level Commission" name="sbnepal-ms_first_level_commission" id="sbnepal-ms_first_level_commission" autocomplete="off" style="width: 100%;">
                         </div>
 
-                        <div class="input-text-wrap" id="title-wrap">
-                            <label for="toggleRegister" style="display: inline-block;margin-bottom: 4px;">
-                                Enable/Disable Registration
+                        <div class="input-text-wrap" id="sbnepal-ms_second_level_commission-wrap">
+                            <label for="sbnepal-ms_second_level_commission" style="display: inline-block;margin-bottom: 4px;">
+                                Second Level Commission
                             </label>
-                            <select name="toggle_register" id="toggleRegister" style="width: 100%">
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
+                            <input type="number" value="<?php echo get_option("sbnepal-ms_second_level_commission", 50) ?>" placeholder="Enter the Second Level Commission" name="sbnepal-ms_second_level_commission" id="sbnepal-ms_second_level_commission" autocomplete="off" style="width: 100%;">
                         </div>
 
-                        <div class="textarea-wrap" id="description-wrap">
-                            <label for="content" style="display: inline-block;margin-bottom: 4px;">Content</label>
-                            <textarea style="width: 100%;" name="content" id="content" placeholder="What’s on your mind?" class="mceEditor" rows="3" cols="15" autocomplete="off"></textarea>
+                        <div class="input-text-wrap" id="sbnepal-ms_third_level_commission-wrap">
+                            <label for="sbnepal-ms_third_level_commission" style="display: inline-block;margin-bottom: 4px;">
+                                Third Level Commission
+                            </label>
+                            <input type="number" value="<?php echo get_option("sbnepal-ms_third_level_commission", 20) ?>" placeholder="Enter the Third Level Commission" name="sbnepal-ms_third_level_commission" id="sbnepal-ms_third_level_commission" autocomplete="off" style="width: 100%;">
+                        </div>
+
+                        <div class="input-text-wrap" id="sbnepal-ms_fourth_level_commission-wrap">
+                            <label for="sbnepal-ms_fourth_level_commission" style="display: inline-block;margin-bottom: 4px;">
+                                Fourth Level Commission
+                            </label>
+                            <input type="number" value="<?php echo get_option("sbnepal-ms_fourth_level_commission", 10) ?>" placeholder="Enter the Fourth Level Commission" name="sbnepal-ms_fourth_level_commission" id="sbnepal-ms_fourth_level_commission" autocomplete="off" style="width: 100%;">
                         </div>
 
                         <p>
@@ -42,7 +50,7 @@
                     </form>
                     <div id="activity-widget">
                         <div id="published-posts" class="activity-block">
-                            <span>Last Updated, 5:28 am</span>
+                            <span>Last Updated, <b class="sbnepal-ms_last_updated"><?php echo get_option('sbnepal_ms_setting_last_updated', date("Y-m-d H:i:s")) ?></b></span>
                         </div>
                     </div>
                 </div>
@@ -54,3 +62,46 @@
         <input type="hidden" name="page" value="ttest_list_table">
     </form>
 </div>
+
+<script>
+    $sb = jQuery.noConflict()
+
+    $sb(function () {
+
+        $sb('.sbnepal-ms-settings-wrapper').find('#sbNepalMsSettingForm').on (
+            'submit', function (e) {
+
+                e.preventDefault()
+
+                var $this = $sb(this),
+                    spinner = "<i class='fa fa-spinner fa-spin'></i>";
+
+                $this.find('input[type=submit]').val( spinner + " Updating ..." )
+                    .prop('disabled', true)
+
+                $sb.ajax({
+                    type: 'POST',
+                    url: $sb(this).data('actionUrl'),
+                    data: $sb(this).serializeArray(),
+                    success: function (response) {
+                        if( response.status === "validation" ) {
+                            $sb.each(response.errors, function (key, value) {
+                                $sb('.'+ key + "-error").html(value).show();
+                            });
+                        } else {
+                            $sb('.sbnepal-ms_last_updated').html(
+                                response.data.last_updated
+                            )
+                            toastr.success(response.data.message, 'Smart Business In Nepal')
+                        }
+
+                        $this.find('input[type=submit]').val( "Update" ).prop('disabled', false);
+                    }
+                })
+
+                return false
+            }
+        )
+
+    })
+</script>

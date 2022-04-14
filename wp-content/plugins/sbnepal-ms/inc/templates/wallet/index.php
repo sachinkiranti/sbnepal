@@ -5,7 +5,7 @@
         <div id="postbox-container-1" class="postbox-container">
             <div class="card">
                 <h2 class="title">Total Commissions</h2>
-                <p>NRS. 10000</p>
+                <p>NRS. <?php echo number_format(10000); ?></p>
             </div>
         </div>
 
