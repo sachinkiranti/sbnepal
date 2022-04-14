@@ -57,7 +57,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="referral_id">Referral ID</label>
-                    <input type="text" name="referral_id" placeholder="Enter the referral id"  class="form-control" id="referral_id" required>
+                    <input type="text" name="referral_id" placeholder="Enter the referral id"  class="form-control" id="referral_id" value="<?php echo esc_attr($_GET['referral_id']); ?>" required>
 
                     <div class="invalid-feedback referral_id-error"></div>
                 </div>
