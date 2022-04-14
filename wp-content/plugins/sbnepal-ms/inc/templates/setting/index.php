@@ -50,9 +50,11 @@
                                 <code style="color: #0a4b78;">{%AGENT_REFER_ID%}</code>
                                 <code style="color: #0a4b78;">{%AGENT_PASSWORD%}</code>
                             </label>
-                            <textarea style="width: 100%;" name="sbnepal-ms_agent_activation_email_template" id="sbnepal_ms_agent_activation_email_template"
-                                      placeholder="Write email template for agent activation." class="mceEditor"
-                                      rows="3" cols="15" autocomplete="off"><?php echo get_option("sbnepal-ms_agent_activation_email_template") ?></textarea>
+
+                            <?php sbnepal_ms_custom_editor(get_option("sbnepal-ms_agent_activation_email_template"), sbnepal-ms_agent_activation_email_template) ?>
+<!--                            <textarea style="width: 100%;" name="sbnepal-ms_agent_activation_email_template" id="sbnepal_ms_agent_activation_email_template"-->
+<!--                                      placeholder="Write email template for agent activation." class="mceEditor"-->
+<!--                                      rows="3" cols="15" autocomplete="off">--><?php //echo get_option("sbnepal-ms_agent_activation_email_template") ?><!--</textarea>-->
                         </div>
 
                         <p>
