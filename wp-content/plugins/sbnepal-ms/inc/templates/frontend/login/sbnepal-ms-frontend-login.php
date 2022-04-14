@@ -54,6 +54,13 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group">
+                    <label for="refer-id">Refer ID</label>
+                    <input type="text" name="refer_id" placeholder="Enter your refer id"  class="form-control" id="refer-id" required>
+
+                    <div class="invalid-feedback refer-id-error"></div>
+                </div>
+
+                <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="text" name="email" placeholder="Enter the email address"  class="form-control" id="email" required>
 

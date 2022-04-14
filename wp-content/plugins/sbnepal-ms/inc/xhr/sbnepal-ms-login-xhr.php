@@ -61,16 +61,26 @@ if ( ! function_exists('sbnepal_ms_resolve_login_data') ) :
         }
 
         $email = sanitize_text_field( $data['email'] );
+        $referId = sanitize_text_field( $data['refer_id'] );
         $password = sanitize_text_field( $data['password'] );
         $remember = sanitize_text_field( $data['remember_me'] );
 
-
-        $login = wp_login( $email, $password );
         $login = wp_signon( array(
             'user_login'        => $email,
             'user_password'     => $password,
-            'remember'          => $remember
+            'remember'          => $remember,
+            'sa'                => 'sad'
         ), false );
+
+        // logout procedure
+        if ($referId > 5) {
+            wp_logout();
+            sbnepal_ms_response( array(
+                'message' => 'The credentials are wrong!',
+                'url'    => home_url('dashboard'),
+                'status' => 'failed',
+            ), false );
+        }
 
         if ( $login->ID ) {
             sbnepal_ms_response( array(
