@@ -24,15 +24,16 @@
                         $sbNepal.each(response.errors, function (key, value) {
                             $sbNepal('.'+ key + "-error").html(value).show();
                         });
-                    } else if (response.status === "failed") {
-                        toastr.error(response.message, 'SBNepal')
-                    } else {
-                        toastr.success(response.message, 'SBNepal')
-                        $sbNepal('.sbnepal-ms-form-login').html(response.view);
+                        $sbNepal("#sbnepal-ms-form-login-submit").html( "Submit" ).prop('disabled', false);
 
+                    } else if (response.status === "failed") {
+                        toastr.error(response.message, 'Smart Business in Nepal.')
+                        $sbNepal("#sbnepal-ms-form-login-submit").html( "Submit" ).prop('disabled', false);
+
+                    } else {
+                        toastr.success(response.message, 'Smart Business in Nepal.')
                         window.location.href = response.url
                     }
-                    $sbNepal("#sbnepal-ms-form-login-submit").html( "Submit" ).prop('disabled', false);
                 }
             })
 
@@ -48,6 +49,7 @@
     <?php if (!is_user_logged_in()) : ?>
     <form method="POST" class="sbnepal-ms-form-login" id="sbnepal-ms-form-login">
         <?php wp_nonce_field('wps-frontend-sbnepal-ms-login') ?>
+        <input type="hidden" name="dashboard" value="<?php echo $dashboard; ?>">
 
         <div class="row">
             <div class="col-sm-12">

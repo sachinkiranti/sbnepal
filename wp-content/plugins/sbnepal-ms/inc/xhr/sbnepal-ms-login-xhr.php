@@ -73,19 +73,8 @@ if ( ! function_exists('sbnepal_ms_resolve_login_data') ) :
         ), false );
 
         if ( $login->ID ) {
-
-            $file_path = dirname(__FILE__) . '/../templates/frontend/login/sbnepal-ms-frontend-login-response.php';
-
-            ob_start();
-
-            include($file_path);
-
-            $html = ob_get_contents();
-            ob_end_clean();
-
             sbnepal_ms_response( array(
-                'view'   => $html,
-                'url'    => home_url('dashboard'),
+                'url'    => home_url(sanitize_text_field( $data['dashboard'] )),
                 'data'   => $login->roles,
                 'status' => 'success',
             ) );
