@@ -21,7 +21,7 @@ if ( ! function_exists('sbnepal_ms_response') ) :
 endif;
 
 // CSRF Validation
-if( ! wp_verify_nonce($_POST['_wpnonces'], 'wps-frontend-sbnepal-ms-agent-activation') ) {
+if( ! wp_verify_nonce($_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-agent-activation') ) {
     sbnepal_ms_response( array(
         'message' => 'CSRF Token Mismatched.',
         'status'  => 'invalid'
