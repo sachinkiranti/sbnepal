@@ -48,7 +48,6 @@
                                 Available Patterns :
                                 <code style="color: #0a4b78;">{%AGENT_NAME%}</code>
                                 <code style="color: #0a4b78;">{%AGENT_REFER_ID%}</code>
-                                <code style="color: #0a4b78;">{%AGENT_PASSWORD%}</code>
                             </label>
 
                             <?php sbnepal_ms_custom_editor(get_option("sbnepal-ms_agent_activation_email_template"), sbnepal-ms_agent_activation_email_template) ?>

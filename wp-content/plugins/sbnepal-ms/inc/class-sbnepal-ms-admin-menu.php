@@ -138,3 +138,19 @@ add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-setting"
         array( 'jquery' )
     );
 });
+
+// Adding toastr to agent list
+add_action("admin_print_styles-smart-business-in-nepal_page_sbnepal-ms-agent", function () {
+    wp_enqueue_style(
+        'sbnepal_ms-toastr-css',
+        "//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    );
+});
+
+add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-agent", function () {
+    wp_enqueue_script(
+        'sbnepal_ms-toastr-js',
+        '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
+        array( 'jquery' )
+    );
+});

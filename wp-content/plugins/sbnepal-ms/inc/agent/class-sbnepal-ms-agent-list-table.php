@@ -55,7 +55,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
                 if (esc_html( get_the_author_meta( 'is_activated_by_admin', $item->ID ) )) {
                     return 'Active';
                 }
-                return '<a class="button action" href="">Activate</a>';
+                return '<a data-wpnonce="'.wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation').'" data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-activate-agent" href="">Activate</a>';
 
             case 'father_name':
                 return $item->father_name;
@@ -154,10 +154,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
         return sprintf( '<a href="%1$s"><strong>%2$s</strong></a> %3$s', admin_url( 'admin.php?page=sbnepal-ms-agent&action=view&id=' . $item->id ), $item->faculty_name, $this->row_actions( $actions ) );
     }
 
-    function column_shortcode( $item )
-    {
-        return '<small><b>[sbnepal-ms title="Prasadi Result - '.$item->faculty_name.'" faculty="'.$item->faculty_name.'"]</b></small>';
-    }
+
     /**
      * Get sortable columns
      *
@@ -273,3 +270,4 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
         ) );
     }
 }
+

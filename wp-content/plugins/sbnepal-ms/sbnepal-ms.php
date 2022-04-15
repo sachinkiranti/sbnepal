@@ -38,6 +38,10 @@ if ( ! function_exists('sbnepal_ms_db_init') ) :
 
 endif;
 
+// Config
+
+include 'sbnepal-ms-config.php';
+
 // Adding the Admin sidebar menu
 include  'inc/class-sbnepal-ms-admin-menu.php';
 
