@@ -13,7 +13,8 @@
             var $this = $sbNepal(this),
                 spinner = "<i class='fa fa-spinner fa-spin'></i>";
 
-            $this.find('button[type=submit]').html( spinner + " Submitting ..." )
+            $this.find('button[type=submit]')
+                .html( spinner + " Submitting ..." )
                 .prop('disabled', true)
 
             $sbNepal.ajax({
@@ -26,8 +27,15 @@
                         $sbNepal.each(response.errors, function (key, value) {
                             $sbNepal('.'+ key + "-error").html(value).show();
                         });
-                    } else {
-                        $sbNepal('.sbnepal-ms-response').html(response.view);
+
+                        $sbNepal("#sbnepal-ms-form-register-submit").html( "Submit" ).prop('disabled', false);
+                    }
+                    else if( response.status === "invalid" ) {
+                        toastr.error(response.message, 'Smart Business In Nepal')
+                        $sbNepal("#sbnepal-ms-form-register-submit").html( "Submit" ).prop('disabled', false);
+                    }
+                    else {
+                        toastr.success(response.message, 'Smart Business In Nepal')
                         $sbNepal("#sbnepal-ms-form-register-submit").html( "Submit" ).prop('disabled', false);
                     }
                 }

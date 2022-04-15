@@ -23,7 +23,7 @@ endif;
 // CSRF Validation
 if( ! wp_verify_nonce($_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-register') ) {
     sbnepal_ms_response( array(
-        'message' => 'Invalid Request.',
+        'message' => 'Token Mismatched Error.',
         'status'  => 'invalid'
     ), false );
 
@@ -67,6 +67,11 @@ if ( ! function_exists('sbnepal_ms_resolve_register_data') ) :
 
             return false;
         }
+
+        sbnepal_ms_response( array(
+            'message' => 'Something went wrong while creating a new agent.',
+            'status'  => 'invalid'
+        ), false );
 
         $email = sanitize_text_field( $data['email'] );
         $password = sanitize_text_field( $data['password'] );
