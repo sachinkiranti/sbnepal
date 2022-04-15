@@ -153,4 +153,21 @@ add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-agent", 
         '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
         array( 'jquery' )
     );
+
+    // Adding localize js script for agent
+    wp_register_script(
+        'smart-business-in-nepal-custom-js',
+        plugins_url('sbnepal-ms/assets/js/agent-list.js'),
+        array( 'jquery', 'sbnepal_ms-toastr-js' )
+    );
+
+    wp_localize_script(
+        'smart-business-in-nepal-custom-js',
+        'sbnepal_ajax_object', array(
+        'ajax_nonce' => wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation')
+    ) );
+
+    wp_enqueue_script(
+        'smart-business-in-nepal-custom-js'
+    );
 });

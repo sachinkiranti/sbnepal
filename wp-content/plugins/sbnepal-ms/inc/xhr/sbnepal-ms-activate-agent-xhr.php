@@ -21,9 +21,9 @@ if ( ! function_exists('sbnepal_ms_response') ) :
 endif;
 
 // CSRF Validation
-if( ! wp_verify_nonce($_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-agent-activation') ) {
+if( ! wp_verify_nonce($_POST['_wpnonces'], 'wps-frontend-sbnepal-ms-agent-activation') ) {
     sbnepal_ms_response( array(
-        'message' => 'Invalid Request.',
+        'message' => 'CSRF Token Mismatched.',
         'status'  => 'invalid'
     ), false );
 
@@ -33,7 +33,6 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
 
     function sbnepal_ms_resolve_agent_activation_data ( $formData ) {
         $agentId = $formData['agentId'];
-
         $user = get_user_by('id', $agentId);
         $recipient = $user->user_email;
         $referId = get_the_author_meta('refer_id', $agentId);
@@ -46,12 +45,18 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
                 '{%agent_refer_id%}'    => $referId,
             ), get_option('sbnepal-ms_agent_activation_email_template'));
 
-        wp_mail($recipient, "Welcome to Smart Business in Nepal", $message);
+        if (wp_mail($recipient, "Welcome to Smart Business in Nepal", $message)) {
+            sbnepal_ms_response( array(
+                'message' => 'You have successfully sent the welcome email to the agent.',
+                'status'  => 'success'
+            ) );
+        }
 
         sbnepal_ms_response( array(
-            'message' => 'You have successfully sent the welcome email to the agent.',
-            'status'  => 'success',
-        ) );
+            'message' => 'Something went wrong while sending activation email to agent.',
+            'status'  => 'invalid'
+        ), false );
+
     }
 
 endif;

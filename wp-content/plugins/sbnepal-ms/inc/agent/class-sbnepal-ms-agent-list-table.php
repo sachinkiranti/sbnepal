@@ -55,7 +55,9 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
                 if (esc_html( get_the_author_meta( 'is_activated_by_admin', $item->ID ) )) {
                     return 'Active';
                 }
-                return '<a data-wpnonce="'.wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation').'" data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-activate-agent" href="">Activate</a>';
+                global $sbNepalBaseDir;
+
+                return '<button data-action-url="'.$sbNepalBaseDir .'inc/xhr/sbnepal-ms-activate-agent-xhr.php" data-wpnonce="'.wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation').'" data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-activate-agent">Activate</button>';
 
             case 'father_name':
                 return $item->father_name;
