@@ -33,7 +33,21 @@ if ( ! function_exists('sbnepal_ms_db_init') ) :
             )
         );
 
+        global $wpdb;
+        $charsetCollate = $wpdb->get_charset_collate();
+        $tableName = $wpdb->prefix . 'sbnepal_ms_wallet';
+
+        $sqlQuery = "CREATE TABLE $tableName (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            added_by INT UNSIGNED,
+            user_id INT UNSIGNED,
+            commission DECIMAL(8,2),
+            is_paid boolean not null default 0,
+            UNIQUE KEY id (id)
+        ) $charsetCollate;";
+
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sqlQuery );
     }
 
 endif;
@@ -62,3 +76,15 @@ include 'inc/sbnepal-ms-toolbar-menu.php';
 include 'inc/shortcodes/index.php';
 
 include 'inc/sbnepal-ms-misc-functions.php';
+
+add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'sbnepal_ms_add_plugin_page_settings_link');
+function sbnepal_ms_add_plugin_page_settings_link( $links ) {
+    return array_merge(array(
+        '<a href="' .
+        admin_url( 'admin.php?page=sbnepal-ms-setting' ) .
+        '">' . __('Setting') . '</a>',
+        '<a href="' .
+        admin_url( 'admin.php?page=sbnepal-ms' ) .
+        '">' . __('Dashboard') . '</a>'
+    ),  $links);
+}
