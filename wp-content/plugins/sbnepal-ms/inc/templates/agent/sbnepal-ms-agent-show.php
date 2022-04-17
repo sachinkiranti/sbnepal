@@ -114,7 +114,7 @@
                                             Status
                                         </th>
                                         <th>
-                                            <?php $isAgentActive = esc_html( get_the_author_meta( 'is_approved_by_admin', $user->ID ) ); ?>
+                                            <?php $isAgentActive = esc_html( get_the_author_meta( 'is_approved_by_admin', $user->ID ) ) === 'yes'; ?>
                                             <?php if ($isAgentActive) : ?>
                                                 <b>Active</b>
                                             <?php else : ?>

@@ -36,18 +36,30 @@ if ( ! function_exists('sbnepal_ms_db_init') ) :
         global $wpdb;
         $charsetCollate = $wpdb->get_charset_collate();
         $tableName = $wpdb->prefix . 'sbnepal_ms_wallet';
+        $hierarchyTableName = $wpdb->prefix . 'sbnepal_ms_user_hierarchy';
 
         $sqlQuery = "CREATE TABLE $tableName (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             added_by INT UNSIGNED,
             user_id INT UNSIGNED,
             commission DECIMAL(8,2),
+            last_level_commission_level TINYINT(10) ZEROFILL,
+            last_level_commission DECIMAL(8,2),
             is_paid boolean not null default 0,
+            UNIQUE KEY id (id)
+        ) $charsetCollate;";
+
+        $hierarchySqlQuery = "CREATE TABLE $hierarchyTableName (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            parent_id INT UNSIGNED,
+            user_id INT UNSIGNED,
+            parent_list TEXT NULL,
             UNIQUE KEY id (id)
         ) $charsetCollate;";
 
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sqlQuery );
+        dbDelta( $hierarchySqlQuery );
     }
 
 endif;

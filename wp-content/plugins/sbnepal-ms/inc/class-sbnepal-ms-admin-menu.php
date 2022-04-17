@@ -27,14 +27,14 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
                 array( $this, 'resolve_views' )
             );
 
-            add_submenu_page(
-                'sbnepal-ms',
-                __( 'Hierarchy', 'sbnepal-ms' ),
-                __( 'Hierarchy', 'sbnepal-ms' ),
-                'activate_plugins',
-                'sbnepal-ms-hierarchy',
-                array( $this, 'resolve_hierarchy_view' )
-            );
+//            add_submenu_page(
+//                'sbnepal-ms',
+//                __( 'Hierarchy', 'sbnepal-ms' ),
+//                __( 'Hierarchy', 'sbnepal-ms' ),
+//                'activate_plugins',
+//                'sbnepal-ms-hierarchy',
+//                array( $this, 'resolve_hierarchy_view' )
+//            );
 
             add_submenu_page(
                 'sbnepal-ms',
@@ -136,6 +136,18 @@ add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-setting"
         '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
         array( 'jquery' )
     );
+});
+
+// Adding modal to wallet
+
+add_action("admin_print_styles-smart-business-in-nepal_page_sbnepal-ms-wallet", function () {
+    wp_enqueue_style( 'wp-jquery-ui-dialog' );
+    wp_enqueue_style('thickbox');
+});
+
+add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-wallet", function () {
+    wp_enqueue_script( 'jquery-ui-dialog' );
+    wp_enqueue_script('plugin-install');
 });
 
 // Adding toastr to agent list

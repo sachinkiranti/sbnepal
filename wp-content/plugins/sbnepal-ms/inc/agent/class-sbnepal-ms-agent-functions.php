@@ -89,12 +89,19 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
                 $signature_photo
             );
 
+            add_user_meta(
+                $user->ID,
+                'refer_id',
+                hexdec(uniqid() + mt_rand(1000, 9999))
+            );
+
             foreach (
                 array(
                     'referral_id',
                     'father_name',
                     'address',
                     'citizenship_no',
+                    'phone_number',
                     'qualification',
                     'is_approved_by_admin',
                     'agent_added_by'
@@ -104,8 +111,14 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
 
                 if ($metaData === 'is_approved_by_admin') {
                     $metaValue = 'no'; // ie. yes = approved else pending, pending cannot login
-                } elseif ($metaData === 'agent_added_by') {
-                    $metaValue = get_current_user_id();
+                }
+                elseif ($metaData === 'agent_added_by') {
+                    $metaValue = isset( $args['agent_added_by'] ) ? sanitize_text_field( $_POST['agent_added_by'] ) : reset(get_users(array(
+                        'meta_key' => 'refer_id',
+                        'meta_value' => $args['referral_id'],
+                        'fields' => 'ids',
+                        'number' => 1
+                    )));
                 }
 
                 add_user_meta(
@@ -114,12 +127,6 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
                     $metaValue
                 );
             }
-
-            add_user_meta(
-                $user->ID,
-                'refer_id',
-                hexdec(uniqid() + mt_rand(1000, 9999))
-            );
 
             return $user;
         }

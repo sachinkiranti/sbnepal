@@ -98,6 +98,40 @@
 
                             <div id="col-right">
                                 <div class="col-wrap">
+                                    <div id="sbnepal-ms_passport_size_photo-wrap"
+                                        style="float: right;clear: both;">
+                                        <input required type="checkbox"
+                                               name="add_agent_for_somebody_else"
+                                               id="sbnepal-ms_add_agent_for_somebody_else"
+                                               autocomplete="off">
+                                        <label for="sbnepal-ms_add_agent_for_somebody_else"
+                                               style="display: inline-block;margin: 4px;">
+                                            Add Agent For Someone Else
+                                        </label>
+                                    </div>
+
+                                    <div class="sbnepal_ms_add_agent_for_somebody_else-wrapper" style="display: none">
+                                        <br>
+                                        <hr>
+                                        <div class="input-text-wrap" id="sbnepal-ms_add_agent_for_somebody_else-wrap">
+                                            <label for="sbnepal-ms_add_agent_for_somebody_else">
+                                                Add Agent For Someone Else
+                                            </label> <br>
+
+                                            <select name="filter" id="walletFilter" style="width: 100%;max-width: 100%;">
+                                                <option selected disabled>Select Agent</option>
+
+                                                <?php foreach (sbnepal_ms_get_all_agent() as $agent) : ?>
+                                                    <option data-refer-id="<?php echo get_the_author_meta( 'refer_id', $agent->ID ); ?>"
+                                                            value="<?php echo $agent->ID; ?>">
+                                                        <?php echo $agent->display_name . ' ( ' . $agent->user_email . ' )'; ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <hr>
+                                    </div>
+
                                     <div class="input-text-wrap" id="sbnepal-ms_passport_size_photo-wrap">
                                         <label for="sbnepal-ms_passport_size_photo" style="display: inline-block;margin: 4px;">
                                             Passport Size Photo(required)

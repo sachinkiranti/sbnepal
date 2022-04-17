@@ -45,4 +45,26 @@ $sbAgent(function () {
         return false
     })
 
+    $sbAgent(document).on('change', 'select[name=filter]', function () {
+        var referralID = $sbAgent(this).find(":selected").data('referId');
+        $sbAgent('input[name=referral_id]').val(
+            referralID ? referralID : null
+        )
+    })
+
+    $sbAgent(document).on('change', 'input[name=add_agent_for_somebody_else]', function () {
+
+        if ($sbAgent(this).is(':checked')) {
+            $sbAgent('.sbnepal_ms_add_agent_for_somebody_else-wrapper').show()
+            $sbAgent('input[name=referral_id]').prop('required', true)
+            $sbAgent('input[name=referral_id]').prop('readonly', true)
+            $sbAgent('input[name=referral_id]').val('')
+            $sbAgent('select[name=referral_id]').val('')
+        } else {
+            $sbAgent('.sbnepal_ms_add_agent_for_somebody_else-wrapper').hide()
+            $sbAgent('input[name=referral_id]').prop('readonly', false)
+        }
+
+    })
+
 })

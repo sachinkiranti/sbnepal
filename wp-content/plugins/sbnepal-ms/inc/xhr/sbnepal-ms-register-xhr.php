@@ -21,13 +21,13 @@ if ( ! function_exists('sbnepal_ms_response') ) :
 endif;
 
 // CSRF Validation
-if( ! wp_verify_nonce($_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-register') ) {
-    sbnepal_ms_response( array(
-        'message' => 'Token Mismatched Error.',
-        'status'  => 'invalid'
-    ), false );
-
-}
+//if( ! wp_verify_nonce($_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-register') ) {
+//    sbnepal_ms_response( array(
+//        'message' => 'Token Mismatched Error.',
+//        'status'  => 'invalid'
+//    ), false );
+//
+//}
 
 // Already logged in
 if ( is_user_logged_in() ) {
@@ -39,16 +39,20 @@ if ( is_user_logged_in() ) {
 
 if ( ! function_exists('sbnepal_ms_resolve_register_data') ) :
 
-    function sbnepal_ms_resolve_register_data ( $formData ) {
+    function sbnepal_ms_resolve_register_data ( $formData, $files ) {
         $error = []; // validation messages
         $data  = []; // success  data
 
-        foreach ( $formData as $column => $value ) {
+        parse_str($formData['form'], $result);
+
+        foreach ( $result as $column => $value ) {
             $value = stripslashes( $value );
 
             if ($column === 'email') {
                 if (email_exists($value)) {
                     $error[$column] = "The email address should be unique.";
+                } else {
+                    $data[$column]  = $value;
                 }
             } else {
                 if(! $value ) {
@@ -68,24 +72,36 @@ if ( ! function_exists('sbnepal_ms_resolve_register_data') ) :
             return false;
         }
 
-        sbnepal_ms_response( array(
-            'message' => 'Something went wrong while creating a new agent.',
-            'status'  => 'invalid'
-        ), false );
+        $data['user_email'] = sanitize_email( $result['email'] );
+        $data['password'] = sanitize_text_field( $result['password'] );
+        $data['referral_id'] = sanitize_text_field( $result['referral_id'] );
+        $data['name'] = sanitize_text_field( $result['name'] );
+        $data['father_name'] = sanitize_text_field( $result['father_name'] );
+        $data['address'] = sanitize_text_field( $result['address'] );
+        $data['citizenship_no'] = sanitize_text_field( $result['citizenship_no'] );
+        $data['qualification'] = sanitize_text_field( $result['qualification'] );
+        $data['phone_number'] = sanitize_text_field( $result['phone_number'] );
+        $data['user_pass'] = sanitize_text_field( $result['password'] );
+        $data['password_confirmation'] = sanitize_text_field( $result['password_confirmation'] );
 
-        $email = sanitize_text_field( $data['email'] );
-        $password = sanitize_text_field( $data['password'] );
-        $referralId = sanitize_text_field( $data['referral_id'] );
-        $name = sanitize_text_field( $data['name'] );
-        $fatherName = sanitize_text_field( $data['father_name'] );
-        $address = sanitize_text_field( $data['address'] );
-        $citizenshipNo = sanitize_text_field( $data['citizenship_no'] );
-        $qualification = sanitize_text_field( $data['qualification'] );
-        $phoneNumber = sanitize_text_field( $data['phone_number'] );
-        $password = sanitize_text_field( $data['password'] );
-        $passwordConfirmation = sanitize_text_field( $data['password_confirmation'] );
+        // image
+        $data['passport_size_photo'] = $files['passport_size_photo'];
+        $data['citizenship_photo'] = $files['citizenship_photo'];
+        $data['signature_photo'] = $files['signature_photo'];
+
+        if (sbnepal_ms_agent_insert_agent( $data )) {
+            sbnepal_ms_response( array(
+                'url'    => home_url(sanitize_text_field( $data['dashboard'] )),
+                'status' => 'success',
+            ) );
+        } else {
+            sbnepal_ms_response( array(
+                'message' => 'Something went wrong while creating a new agent.',
+                'status'  => 'invalid'
+            ), false );
+        }
     }
 
 endif;
 
-sbnepal_ms_resolve_register_data( $_POST );
+sbnepal_ms_resolve_register_data( $_POST, $_FILES );

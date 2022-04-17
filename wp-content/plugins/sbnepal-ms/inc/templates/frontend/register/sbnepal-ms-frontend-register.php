@@ -1,7 +1,7 @@
 <script>
     var $sbNepal = jQuery.noConflict()
 
-    $sbNepal(window).load( function() {
+    $sbNepal( function() {
 
         $sbNepal('[data-toggle="tooltip"]').tooltip();
 
@@ -13,14 +13,29 @@
             var $this = $sbNepal(this),
                 spinner = "<i class='fa fa-spinner fa-spin'></i>";
 
+            var formData = new FormData();
+
+            var passport_size_photo = $sbNepal('input[name=passport_size_photo]')[0].files[0]
+            var citizenship_photo = $sbNepal('input[name=citizenship_photo]')[0].files[0]
+            var signature_photo = $sbNepal('input[name=signature_photo]')[0].files[0]
+
+            formData.append('passport_size_photo', passport_size_photo);
+            formData.append('citizenship_photo', citizenship_photo);
+            formData.append('signature_photo', signature_photo);
+            formData.append('form', $this.serialize())
+            console.log(formData)
+
             $this.find('button[type=submit]')
                 .html( spinner + " Submitting ..." )
                 .prop('disabled', true)
 
             $sbNepal.ajax({
                 type: 'POST',
-                url: '<?php echo $sbNepalBaseDir ?>inc/xhr/sbnepal-ms-register-xhr.php',
-                data: $this.serialize(),
+                url: '<?php echo $sbNepalBaseDir; ?>inc/xhr/sbnepal-ms-register-xhr.php',
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData:false,
                 success: function (response) {
                     response = response.data;
                     if( response.status === "validation" ) {
@@ -36,7 +51,7 @@
                     }
                     else {
                         toastr.success(response.message, 'Smart Business In Nepal')
-                        $sbNepal("#sbnepal-ms-form-register-submit").html( "Submit" ).prop('disabled', false);
+                        window.location.href = response.url
                     }
                 }
             })

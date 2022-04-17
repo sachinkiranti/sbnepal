@@ -55,10 +55,13 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
                     $referralInfo = 'Not Available';
                 }
 
-                return esc_html( get_the_author_meta( 'referral_id', $item->ID ) ) .'<br><b title="Referred By">'.$referralInfo.'</b>';
+                return '<a href="'.admin_url( 'admin.php?page=sbnepal-ms-agent&action=view&agent_id='.$agentId ).'"><span data-referral-id='.$agentId.'>'. esc_html( get_the_author_meta( 'referral_id', $item->ID ) ) .'</span><br><b title="Referred By">'.$referralInfo.'</b></a>';
 
             case 'refer_id':
                 return esc_html( get_the_author_meta( 'refer_id', $item->ID ) );
+
+            case 'payment_action':
+                return '<button data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-pay-agent">Pay</button>';
 
             case 'action':
                 if (esc_html( get_the_author_meta( 'is_activated_by_admin', $item->ID ) )) {
@@ -73,7 +76,9 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
                 return $item->father_name;
 
             case 'email':
-                return $item->user_email;
+                $referralInfo = $item->display_name . ' (' . $item->user_email . ')';
+
+                return '<a href="'.admin_url( 'admin.php?page=sbnepal-ms-agent&action=view&agent_id='.$item->id ).'"><b title="Referred By">'.$referralInfo.'</b></a>';
 
             case 'phone_number':
                 return esc_html( get_the_author_meta( 'phone_number', $item->ID ) );
@@ -118,7 +123,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             );
         }
 
-        return esc_html( get_the_author_meta( 'referral_id', $item->ID ) ) . $actionWrapper;
+        return esc_html( get_the_author_meta( 'refer_id', $item->ID ) ) . $actionWrapper;
     }
 
     /**
@@ -138,7 +143,8 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
 
         if ($_GET['page'] === 'sbnepal-ms-wallet') {
             $columns = array(
-                'commission' => __( 'Commission', 'sbnepal-ms' )
+                'commission' => __( 'Commission', 'sbnepal-ms' ),
+                'payment_action' => __('Action', 'sbnepal-ms')
             );
         }
 

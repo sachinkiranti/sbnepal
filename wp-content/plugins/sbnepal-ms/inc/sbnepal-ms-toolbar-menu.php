@@ -40,16 +40,29 @@ if (! function_exists('sbnepal_ms_toolbar_link')) :
         $wp_admin_bar->add_node($args);
 
         $args = array(
-            'id' => 'sbnepal_ms-hierarchy',
-            'title' => 'Hierarchy',
-            'href' => admin_url( "admin.php?page=sbnepal-ms-hierarchy" ),
-            'parent' => 'sbnepal_ms',
+            'id' => 'sbnepal_ms-agents-list',
+            'title' => 'List Agent',
+            'href' => admin_url( "admin.php?page=sbnepal-ms-agent" ),
+            'parent' => 'sbnepal_ms-agents',
             'meta' => array(
-                'class' => 'sbnepal_ms-hierarchy',
-                'title' => 'Visit Hierarchy'
+                'class' => 'sbnepal_ms-agents-list',
+                'title' => 'List Agent'
             )
         );
+
         $wp_admin_bar->add_node($args);
+
+//        $args = array(
+//            'id' => 'sbnepal_ms-hierarchy',
+//            'title' => 'Hierarchy',
+//            'href' => admin_url( "admin.php?page=sbnepal-ms-hierarchy" ),
+//            'parent' => 'sbnepal_ms',
+//            'meta' => array(
+//                'class' => 'sbnepal_ms-hierarchy',
+//                'title' => 'Visit Hierarchy'
+//            )
+//        );
+//        $wp_admin_bar->add_node($args);
 
         $args = array(
             'id' => 'sbnepal_ms-wallet',
