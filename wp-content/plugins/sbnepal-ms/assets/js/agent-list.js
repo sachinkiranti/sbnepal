@@ -2,6 +2,10 @@ $sbAgent = jQuery.noConflict()
 
 $sbAgent(function () {
 
+    if(typeof $sbAgent.fn.dropify !== 'undefined') {
+        $sbAgent('.dropify').dropify()
+    }
+
     $sbAgent(document).on('click', '.sbnepal-ms-activate-agent', function (e) {
         e.preventDefault()
 
@@ -13,7 +17,7 @@ $sbAgent(function () {
 
         $sbAgent.ajax({
             type: 'POST',
-            url: $this.data('actionUrl'),
+            url: sbnepal_ajax_object.sbnepal_ms_active_agent_url,
             data: {
                 agentId: $this.data('agentId'),
                 _wpnonce: sbnepal_ajax_object.ajax_nonce

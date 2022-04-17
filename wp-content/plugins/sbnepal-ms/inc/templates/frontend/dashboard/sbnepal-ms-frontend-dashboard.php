@@ -50,11 +50,14 @@
                     <p class="card-text">
                         NRS. <?php echo number_format(10000); ?>
                     </p>
-                    <a href="javascript:void" data-referral-id="21221121"
+
+                    <?php $userReferId = get_the_author_meta( 'refer_id', get_current_user_id() ); ?>
+
+                    <a href="javascript:void" data-referral-id="<?php echo $userReferId; ?>"
                        data-register-url="<?php echo home_url($register); ?>"
                        class="card-link sbnepal-ms-copy-referral-id"
                        title="Referral ID">
-                        21221121
+                        <?php echo $userReferId; ?>
                         <span class="badge badge-secondary">Referral ID</span>
                     </a>
                 </div>

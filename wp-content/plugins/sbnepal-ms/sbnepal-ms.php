@@ -47,10 +47,14 @@ include  'inc/class-sbnepal-ms-admin-menu.php';
 
 new SBNepal_MS_Admin_Menu();
 
+// Add notices
+include 'inc/lib/sbnepal-ms-flash.php';
+
 // Add custom fields
 include 'inc/agent/sbnepal-ms-agent-custom-fields.php';
 
 include 'inc/agent/class-sbnepal-ms-agent-list-table.php';
+include 'inc/agent/class-sbnepal-ms-agent-form-handler.php';
 include 'inc/agent/class-sbnepal-ms-agent-functions.php';
 
 include 'inc/sbnepal-ms-toolbar-menu.php';

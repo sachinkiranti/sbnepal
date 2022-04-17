@@ -57,7 +57,8 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
                 }
                 global $sbNepalBaseDir;
 
-                return '<button data-action-url="'.$sbNepalBaseDir .'inc/xhr/sbnepal-ms-activate-agent-xhr.php" data-wpnonce="'.wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation').'" data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-activate-agent">Activate</button>';
+                return '<button data-action-url="'.$sbNepalBaseDir .'inc/xhr/sbnepal-ms-activate-agent-xhr.php" data-wpnonce="'.wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation').'" data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-activate-agent">Activate</button>'.
+                    ' <a href="'.admin_url('admin.php?page=sbnepal-ms-agent&action=view&agent_id='.$item->ID).'" class="button action">View</a>';
 
             case 'father_name':
                 return $item->father_name;

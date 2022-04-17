@@ -27,6 +27,19 @@ if (! function_exists('sbnepal_ms_toolbar_link')) :
         $wp_admin_bar->add_node($args);
 
         $args = array(
+            'id' => 'sbnepal_ms-agents-new',
+            'title' => 'Add Agent',
+            'href' => admin_url( "admin.php?page=sbnepal-ms-agent&action=new" ),
+            'parent' => 'sbnepal_ms-agents',
+            'meta' => array(
+                'class' => 'sbnepal_ms-agents',
+                'title' => 'Add Agent'
+            )
+        );
+
+        $wp_admin_bar->add_node($args);
+
+        $args = array(
             'id' => 'sbnepal_ms-hierarchy',
             'title' => 'Hierarchy',
             'href' => admin_url( "admin.php?page=sbnepal-ms-hierarchy" ),

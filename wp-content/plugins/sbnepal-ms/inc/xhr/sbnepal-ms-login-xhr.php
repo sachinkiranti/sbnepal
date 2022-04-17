@@ -69,15 +69,20 @@ if ( ! function_exists('sbnepal_ms_resolve_login_data') ) :
             'user_login'        => $email,
             'user_password'     => $password,
             'remember'          => $remember,
-            'sa'                => 'sad'
         ), false );
 
+        $isReferIdValid = $referId != esc_html( get_the_author_meta( 'refer_id', $login->ID ) );
+        $isApprovedByAdmin = esc_html( get_the_author_meta( 'is_approved_by_admin', $login->ID ) ) === 'no';
+
         // logout procedure
-        if ($referId > 5) {
-            wp_logout();
+        if ($isReferIdValid || $isApprovedByAdmin) {
+
+            if ( $login->ID ) {
+                wp_logout();
+            }
+
             sbnepal_ms_response( array(
                 'message' => 'The credentials are wrong!',
-                'url'    => home_url('dashboard'),
                 'status' => 'failed',
             ), false );
         }

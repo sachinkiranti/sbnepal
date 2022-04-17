@@ -53,6 +53,16 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
         }
 
         sbnepal_ms_response( array(
+            'const'   => array(
+                'host' => SBNEPAL_MS_SMTP_HOST,
+                'auth' => SBNEPAL_MS_SMTP_AUTH,
+                'port' => SBNEPAL_MS_SMTP_PORT,
+                'secure' => SBNEPAL_MS_SMTP_SECURE,
+                'username' => SBNEPAL_MS_SMTP_USERNAME,
+                'password' => SBNEPAL_MS_SMTP_PASSWORD,
+                'sent_from' => SBNEPAL_MS_SMTP_FROM,
+                'sent_from_name' => SBNEPAL_MS_SMTP_FROM_NAME
+            ),
             'message' => 'Something went wrong while sending activation email to agent.',
             'status'  => 'invalid'
         ), false );

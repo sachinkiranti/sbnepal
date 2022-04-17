@@ -71,7 +71,7 @@ include 'inc/prasadi-result-sys-shortcode.php';
 
 function custom_dump($anything){
     add_action('shutdown', function () use ($anything) {
-        echo "<pre>";
+        echo "<pre id=wpwrap style='text-align: center'>";
         print_r($anything);
         echo "</pre>";
         exit;

@@ -6,7 +6,7 @@
  * @package Package
  * @subpackage Sub Package
  */
-class Prasadi_Result_sys_Result_Form_Handler {
+class SBNEPAL_MS_Agent_Form_Handler {
 
     /**
      * Hook 'em all
@@ -25,66 +25,61 @@ class Prasadi_Result_sys_Result_Form_Handler {
             return;
         }
 
-        if ($_POST['FORM_HANDLER'] === 'prasadi_result_sys_result') {
-            if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'prasadi_result_sys_result' ) ) {
-                die( __( 'Are you cheatingdasda?', 'prasadi-result-sys' ) );
+        if ($_POST['FORM_HANDLER'] === 'sbnepal-ms-add-agent') {
+            if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-add-agent' ) ) {
+                die( __( 'Are you cheating?', 'sbnepal-ms' ) );
             }
 
             if ( ! current_user_can( 'read' ) ) {
-                wp_die( __( 'Permission Denied!', 'prasadi-result-sys' ) );
+                wp_die( __( 'Permission Denied!', 'sbnepal-ms' ) );
             }
 
             $errors   = array();
-            $page_url = admin_url( 'admin.php?page=prasadi-result-sys' );
+            $page_url = admin_url( 'admin.php?page=sbnepal-ms-agent&action=new' );
             $field_id = isset( $_POST['field_id'] ) ? intval( $_POST['field_id'] ) : 0;
 
-            $symbol_number = isset( $_POST['symbol_number'] ) ? sanitize_text_field( $_POST['symbol_number'] ) : '';
-            $result = isset( $_POST['result'] ) ? sanitize_text_field( $_POST['result'] ) : '';
-            $appointment_date = isset( $_POST['appointment_date'] ) ? sanitize_text_field( $_POST['appointment_date'] ) : '';
-            $appointment_time = isset( $_POST['appointment_time'] ) ? sanitize_text_field( $_POST['appointment_time'] ) : '';
-            $facultyId = isset( $_POST['faculty_id'] ) ? absint( $_POST['faculty_id'] ) : '';
-            $meeting_link = isset( $_POST['meeting_link'] ) ? wp_kses_post( $_POST['meeting_link'] ) : '';
-            $meeting_id = isset( $_POST['meeting_id'] ) ? sanitize_text_field( $_POST['meeting_id'] ) : '';
-            $password = isset( $_POST['password'] ) ? sanitize_text_field( $_POST['password'] ) : '';
+            $data['referral_id'] = isset( $_POST['referral_id'] ) ? sanitize_text_field( $_POST['referral_id'] ) : '';
+            $data['name'] = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+            $data['user_email'] = isset( $_POST['email'] ) ? sanitize_text_field( $_POST['email'] ) : '';
+            $data['phone_number'] = isset( $_POST['phone_number'] ) ? sanitize_text_field( $_POST['phone_number'] ) : '';
+            $data['user_pass'] = isset( $_POST['password'] ) ? sanitize_text_field( $_POST['password'] ) : '';
+            $data['password_confirmation'] = isset( $_POST['password_confirmation'] ) ? sanitize_text_field( $_POST['password_confirmation'] ) : '';
+            $data['father_name'] = isset( $_POST['father_name'] ) ? sanitize_text_field( $_POST['father_name'] ) : '';
+            $data['address'] = isset( $_POST['address'] ) ? sanitize_text_field( $_POST['address'] ) : '';
+            $data['qualification'] = isset( $_POST['qualification'] ) ? sanitize_text_field( $_POST['qualification'] ) : '';
+            $data['citizenship_no'] = isset( $_POST['citizenship_no'] ) ? sanitize_text_field( $_POST['citizenship_no'] ) : '';
+            $data['passport_size_photo'] = !empty( $_FILES['passport_size_photo'] ) ? $_FILES['passport_size_photo'] : '';
+            $data['citizenship_photo'] = !empty( $_FILES['citizenship_photo'] ) ? $_FILES['citizenship_photo'] : '';
+            $data['signature_photo'] = !empty( $_FILES['signature_photo'] ) ? $_FILES['signature_photo'] : '';
 
             // some basic validation
-            if ( ! $symbol_number ) {
-                $errors[] = __( 'Error: Symbol Number is required', 'prasadi-result-sys' );
-            }
-
-            if ( ! $result ) {
-                $errors[] = __( 'Error: Result is required', 'prasadi-result-sys' );
+            foreach ($data as $key => $value) {
+                if ( ! $value ) {
+                    $errors[] = __( 'Error: '.ucwords(str_replace(['_'], ' ', $key)).' is required', 'sbnepal-ms' );
+                }
             }
 
             // bail out if error found
             if ( $errors ) {
-                $first_error = reset( $errors );
-                $redirect_to = add_query_arg( array( 'error' => $first_error ), $page_url );
+                foreach ($errors as $error) {
+                    queue_flash_message($error, 'error');
+                }
+                // $first_error = reset( $errors );
+                $redirect_to = add_query_arg( $data, $page_url );
                 wp_safe_redirect( $redirect_to );
                 exit;
             }
 
-            $fields = array(
-                'symbol_number' => $symbol_number,
-                'result' => $result,
-                'appointment_date' => $appointment_date,
-                'appointment_time' => $appointment_time,
-                'meeting_link' => $meeting_link,
-                'meeting_id' => $meeting_id,
-                'password' => $password,
-                'faculty_id' => $facultyId,
-            );
-
             // New or edit?
             if ( ! $field_id ) {
 
-                $insert_id = prasadi_result_sys_result_insert_result( $fields );
+                $insert_id = sbnepal_ms_agent_insert_agent( $data );
 
             } else {
 
                 $fields['id'] = $field_id;
 
-                $insert_id = prasadi_result_sys_result_insert_result( $fields );
+                $insert_id = sbnepal_ms_agent_insert_agent( $fields );
             }
 
             if ( is_wp_error( $insert_id ) ) {
@@ -99,4 +94,4 @@ class Prasadi_Result_sys_Result_Form_Handler {
     }
 }
 
-new Prasadi_Result_sys_Result_Form_Handler();
+new SBNEPAL_MS_Agent_Form_Handler();
