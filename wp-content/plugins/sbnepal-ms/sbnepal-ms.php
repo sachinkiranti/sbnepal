@@ -83,6 +83,9 @@ include 'inc/agent/class-sbnepal-ms-agent-list-table.php';
 include 'inc/agent/class-sbnepal-ms-agent-form-handler.php';
 include 'inc/agent/class-sbnepal-ms-agent-functions.php';
 
+// Hierarchy
+include 'inc/hierarchy/class-sbnepal-ms-hierarchy-functions.php';
+
 include 'inc/sbnepal-ms-toolbar-menu.php';
 
 include 'inc/shortcodes/index.php';

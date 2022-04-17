@@ -56,13 +56,14 @@ $sbAgent(function () {
 
         if ($sbAgent(this).is(':checked')) {
             $sbAgent('.sbnepal_ms_add_agent_for_somebody_else-wrapper').show()
-            $sbAgent('input[name=referral_id]').prop('required', true)
+            // $sbAgent('input[name=referral_id]').prop('required', true)
             $sbAgent('input[name=referral_id]').prop('readonly', true)
             $sbAgent('input[name=referral_id]').val('')
             $sbAgent('select[name=referral_id]').val('')
         } else {
             $sbAgent('.sbnepal_ms_add_agent_for_somebody_else-wrapper').hide()
             $sbAgent('input[name=referral_id]').prop('readonly', false)
+            $sbAgent('input[name=referral_id]').val('')
         }
 
     })

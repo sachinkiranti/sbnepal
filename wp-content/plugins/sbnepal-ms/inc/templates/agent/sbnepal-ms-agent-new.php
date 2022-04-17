@@ -22,9 +22,9 @@
                                 <div class="col-wrap">
                                     <div class="input-text-wrap" id="sbnepal-ms_referral_id-wrap">
                                         <label for="sbnepal-ms_referral_id" style="display: inline-block;margin: 4px;">
-                                            Referral ID(required)
+                                            Referral ID <br> <small>If not given, will be recognized as the first agent</small>
                                         </label>
-                                        <input required type="text" placeholder="Enter the referral ID" name="referral_id" id="sbnepal-ms_referral_id" value="<?php echo isset($_GET['referral_id']) ? $_GET['referral_id'] : ''; ?>" autocomplete="off" style="width: 100%;">
+                                        <input type="text" placeholder="Enter the referral ID" name="referral_id" id="sbnepal-ms_referral_id" value="<?php echo isset($_GET['referral_id']) ? $_GET['referral_id'] : ''; ?>" autocomplete="off" style="width: 100%;">
                                     </div>
 
                                     <div class="input-text-wrap" id="sbnepal-ms_name-wrap">
@@ -100,7 +100,7 @@
                                 <div class="col-wrap">
                                     <div id="sbnepal-ms_passport_size_photo-wrap"
                                         style="float: right;clear: both;">
-                                        <input required type="checkbox"
+                                        <input type="checkbox"
                                                name="add_agent_for_somebody_else"
                                                id="sbnepal-ms_add_agent_for_somebody_else"
                                                autocomplete="off">

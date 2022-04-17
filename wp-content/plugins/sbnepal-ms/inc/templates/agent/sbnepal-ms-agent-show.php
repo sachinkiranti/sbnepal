@@ -9,6 +9,29 @@
             <?php _e( 'Add', 'sbnepal-ms' ); ?>
         </a>
     </h2>
+    <?php $user = get_user_by('id', $_GET['agent_id']); ?>
+    <div id="dashboard-widgets-wrap">
+        <div id="postbox-container-1" class="postbox-container">
+            <div class="card">
+                <h2 class="title">Total Commissions</h2>
+                <p>NRS. <?php echo number_format(reset(sbnepal_ms_wallet_get_commission_sum($user->ID))->total_commission); ?></p>
+            </div>
+        </div>
+
+        <div id="postbox-container-1" class="postbox-container">
+            <div class="card">
+                <h2 class="title">Total Paid Commissions</h2>
+                <p>NRS. <?php echo number_format(reset(sbnepal_ms_wallet_get_commission_sum($user->ID))->total_paid_commission); ?></p>
+            </div>
+        </div>
+
+        <div id="postbox-container-1" class="postbox-container">
+            <div class="card">
+                <h2 class="title">Total Unpaid Commissions</h2>
+                <p>NRS. <?php echo number_format(reset(sbnepal_ms_wallet_get_commission_sum($user->ID))->total_unpaid_commission); ?></p>
+            </div>
+        </div>
+    </div>
 
     <div class="dashboard-widgets-wrap">
         <div class="metabox-holder">
@@ -17,8 +40,6 @@
                     <div id="col-container">
                         <div id="col-left">
                             <div class="col-wrap">
-
-                                <?php $user = get_user_by('id', $_GET['agent_id']); ?>
 
                                 <table class="table-sbnepal-ms-agent" style="margin: 10px">
 

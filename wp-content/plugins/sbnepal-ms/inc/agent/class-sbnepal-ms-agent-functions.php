@@ -113,7 +113,7 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
                     $metaValue = 'no'; // ie. yes = approved else pending, pending cannot login
                 }
                 elseif ($metaData === 'agent_added_by') {
-                    $metaValue = isset( $args['agent_added_by'] ) ? sanitize_text_field( $_POST['agent_added_by'] ) : reset(get_users(array(
+                    $metaValue = isset( $args['agent_added_by'] ) ? $args['agent_added_by'] : reset(get_users(array(
                         'meta_key' => 'refer_id',
                         'meta_value' => $args['referral_id'],
                         'fields' => 'ids',
@@ -128,6 +128,9 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
                 );
             }
 
+            // Add commission
+
+            sbnepal_ms_insert_hierarchy_with_commission($user->ID);
             return $user;
         }
 

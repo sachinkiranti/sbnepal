@@ -93,7 +93,10 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
                 return $item->signature_image;
 
             case 'commission':
-                return 'NRS. '. mt_rand(100, 400);
+
+                $totalCommission = reset(sbnepal_ms_wallet_get_commission_sum($item->ID))->total_commission;
+
+                return 'NRS. '. ($totalCommission > 0 ? $totalCommission : 0);
 
             default:
                 return isset( $item->$column_name ) ? $item->$column_name : '';
@@ -136,14 +139,14 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
 
         if ($_GET['page'] === 'sbnepal-ms-agent') {
             $columns = array(
-                'commission' => __( 'Commission', 'sbnepal-ms' ),
+                'commission' => __( 'Total Commission Earned', 'sbnepal-ms' ),
                 'action'        => __("Action", "sbnepal-ms")
             );
         }
 
         if ($_GET['page'] === 'sbnepal-ms-wallet') {
             $columns = array(
-                'commission' => __( 'Commission', 'sbnepal-ms' ),
+                'commission' => __( 'Total Commission Earned', 'sbnepal-ms' ),
                 'payment_action' => __('Action', 'sbnepal-ms')
             );
         }

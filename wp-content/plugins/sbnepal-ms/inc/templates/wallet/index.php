@@ -3,9 +3,15 @@
 
     <div id="dashboard-widgets-wrap">
         <div id="postbox-container-1" class="postbox-container">
+
+            <?php
+            $totalCommission = reset(sbnepal_ms_wallet_get_commission_sum(get_current_user_id()))->total_commission;
+
+            $commissionEarned =  ($totalCommission > 0 ? $totalCommission : 0);
+            ?>
             <div class="card">
                 <h2 class="title">Total Commissions</h2>
-                <p>NRS. <?php echo number_format(10000); ?></p>
+                <p>NRS. <?php echo number_format($commissionEarned); ?></p>
             </div>
         </div>
 

@@ -38,14 +38,18 @@ class SBNEPAL_MS_Agent_Form_Handler {
             $page_url = admin_url( 'admin.php?page=sbnepal-ms-agent&action=new' );
             $field_id = isset( $_POST['field_id'] ) ? intval( $_POST['field_id'] ) : 0;
 
-            $data['referral_id'] = isset( $_POST['referral_id'] ) ? sanitize_text_field( $_POST['referral_id'] ) : '';
+            if (isset($_POST['referral_id'])) {
+                $data['referral_id'] = sanitize_text_field( $_POST['referral_id'] );
 
-            $getReferID = reset(get_users(array(
-                'meta_key' => 'refer_id',
-                'meta_value' => $data['referral_id'],
-                'fields' => 'ids',
-                'number' => 1
-            )));
+                $getReferID = reset(get_users(array(
+                    'meta_key' => 'refer_id',
+                    'meta_value' => $data['referral_id'],
+                    'fields' => 'ids',
+                    'number' => 1
+                )));
+            } else {
+                $getReferID = get_current_user_id();
+            }
 
             $data['agent_added_by'] = isset( $_POST['filter'] ) ? sanitize_text_field( $_POST['filter'] ) : $getReferID;
             $data['name'] = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
