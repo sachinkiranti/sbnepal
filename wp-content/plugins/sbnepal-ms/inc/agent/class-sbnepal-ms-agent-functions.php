@@ -96,13 +96,16 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
                     'address',
                     'citizenship_no',
                     'qualification',
-                    'is_approved_by_admin'
+                    'is_approved_by_admin',
+                    'agent_added_by'
                 ) as $metaData) {
 
                 $metaValue = $args[$metaData];
 
                 if ($metaData === 'is_approved_by_admin') {
-                    $metaValue = 'no'; // ie. true = approved else pending, pending cannot login
+                    $metaValue = 'no'; // ie. yes = approved else pending, pending cannot login
+                } elseif ($metaData === 'agent_added_by') {
+                    $metaValue = get_current_user_id();
                 }
 
                 add_user_meta(

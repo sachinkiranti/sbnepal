@@ -96,6 +96,21 @@
 
                                     <tr>
                                         <th style="float: left">
+                                            Added By
+                                        </th>
+                                        <th>
+                                            <?php $agentId = esc_html( get_the_author_meta( 'agent_added_by', $user->ID ) ); ?>
+                                            <?php if ($agentId) : ?>
+                                                <?php $referral = get_user_by('id', $agentId); ?>
+                                                <?php echo $referral->display_name . ' (' . $referral->user_email . ')' ?>
+                                            <?php else : ?>
+                                                Not Available
+                                            <?php endif; ?>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th style="float: left">
                                             Status
                                         </th>
                                         <th>

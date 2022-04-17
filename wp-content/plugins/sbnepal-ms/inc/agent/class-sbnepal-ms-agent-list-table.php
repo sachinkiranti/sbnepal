@@ -46,7 +46,16 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
     function column_default( $item, $column_name ) {
         switch ( $column_name ) {
             case 'referral_id':
-                return esc_html( get_the_author_meta( 'referral_id', $item->ID ) );
+                $agentId = esc_html( get_the_author_meta( 'agent_added_by', $item->ID ) );
+
+                if ($agentId) {
+                    $referral = get_user_by('id', $agentId);
+                    $referralInfo = $referral->display_name . ' (' . $referral->user_email . ')';
+                } else {
+                    $referralInfo = 'Not Available';
+                }
+
+                return esc_html( get_the_author_meta( 'referral_id', $item->ID ) ) .'<br><b title="Referred By">'.$referralInfo.'</b>';
 
             case 'refer_id':
                 return esc_html( get_the_author_meta( 'refer_id', $item->ID ) );
@@ -87,7 +96,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
     }
 
 
-    function column_referral_id( $item ) {
+    function column_refer_id( $item ) {
 
         $actions           = array();
 
@@ -135,10 +144,10 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
 
         return array_merge(array(
             'cb'           => '<input type="checkbox" />',
+            'refer_id'      => __('Refer ID', 'sbnepal_ms'),
             'referral_id'      => __( 'Referral ID', 'sbnepal-ms' ),
             'email'      => __( 'Email Address', 'sbnepal-ms' ),
             'phone_number' => __( 'Phone', 'sbnepal-ms' ),
-            'refer_id'      => __('Refer ID', 'sbnepal_ms')
         ), $columns);
     }
 
