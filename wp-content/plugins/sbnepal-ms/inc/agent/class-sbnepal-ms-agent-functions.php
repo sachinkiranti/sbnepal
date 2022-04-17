@@ -39,6 +39,11 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
     $table_name = $wpdb->prefix . 'users';
     $metatable_name = $wpdb->prefix . 'usermeta';
 
+
+    if (empty($args['referral_id'])){
+        unset( $args['referral_id'] );
+    }
+
     foreach ($args as $key => $value) {
         if ( empty( $value ) ) {
             return new WP_Error( 'no-'.$key, __( 'No '.$key.' provided.', 'sbnepal-ms' ) );
@@ -121,11 +126,14 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
                     )));
                 }
 
-                add_user_meta(
-                    $user->ID,
-                    $metaData,
-                    $metaValue
-                );
+                if ($metaValue) {
+                    add_user_meta(
+                        $user->ID,
+                        $metaData,
+                        $metaValue
+                    );
+                }
+
             }
 
             // Add commission

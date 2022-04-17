@@ -1,7 +1,7 @@
 <script>
     var $sbNepal = jQuery.noConflict()
 
-    $sbNepal(window).load( function() {
+    $sbNepal(function () {
         var $sbNepalForm = $sbNepal("#sbnepal-ms-form-login");
 
         $sbNepalForm.submit( function (e) {
