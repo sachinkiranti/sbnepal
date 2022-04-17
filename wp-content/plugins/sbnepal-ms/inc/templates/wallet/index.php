@@ -37,7 +37,7 @@
 
     <div id="my-dialog" class="hidden" style="max-width:800px">
         <p>You are about to enter manual payment entry <span style="color:red;" class="sbnepal-ms-money-holder"></span> to <span style="color:blue;" class="sbnepal-ms-referral-holder"></span>.</p>
-        <button class="button action sbnepal-ms-pay-agent">Pay</button>
+        <button class="button action sbnepal-ms-pay-agent-modal">Pay</button>
     </div>
 </div>
 
@@ -49,6 +49,10 @@
             // alert($sbNepal(this).val())
         })
         
+        $sbNepal(document).on('click', '.sbnepal-ms-pay-agent-modal', function (e) {
+            e.preventDefault()
+        })
+
         $sbNepal(document).on('click', '.sbnepal-ms-pay-agent', function (e) {
             e.preventDefault()
 
