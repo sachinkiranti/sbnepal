@@ -57,7 +57,37 @@
         
         $sbNepal(document).on('click', '.sbnepal-ms-pay-agent-modal', function (e) {
             e.preventDefault()
-        })
+
+            var $aboutToPay = $sbNepal('#my-dialog').find('.sbnepal-ms-money-holder').html().replace('NRS. ', ''),
+                $userId = $sbNepal('#my-dialog').find('.sbnepal-ms-referral-holder > a').data('userId')
+
+            var $this = $sbNepal(this),
+                spinner = "<i class='fa fa-spinner fa-spin'></i>";
+
+            $this.html( spinner + " Paying ..." )
+                .prop('disabled', true)
+
+            $sbNepal.ajax({
+                type: 'POST',
+                url: sbnepal_ajax_object.sbnepal_ms_paying_agent_url,
+                data: {
+                    userId: $userId,
+                    aboutToPay: $aboutToPay,
+                    _wpnonce: sbnepal_ajax_object.ajax_nonce
+                },
+                success: function (response) {
+                    if( response.data.status === "invalid" ) {
+                        toastr.error(response.data.message, 'Smart Business In Nepal')
+                    } else {
+                        toastr.success(response.data.message, 'Smart Business In Nepal')
+                        document.location.reload(true);
+                    }
+
+                    $this.html( spinner + " Activate" )
+                        .prop('disabled', false)
+                }
+            })
+        });
 
         $sbNepal(document).on('click', '.sbnepal-ms-pay-agent', function (e) {
             e.preventDefault()
@@ -67,7 +97,7 @@
             )
 
             $sbNepal('#my-dialog').find('.sbnepal-ms-referral-holder').html(
-                $sbNepal(this).parents('tr').find('.column-referral_id').html()
+                $sbNepal(this).parents('tr').find('.column-email').html()
             )
             $sbNepal('#my-dialog').dialog('open');
         })

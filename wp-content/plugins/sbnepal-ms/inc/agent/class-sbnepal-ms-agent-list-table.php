@@ -81,7 +81,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
             case 'email':
                 $referralInfo = $item->display_name . ' (' . $item->user_email . ')';
 
-                return '<a href="'.admin_url( 'admin.php?page=sbnepal-ms-agent&action=view&agent_id='.$item->id ).'"><b title="Referred By">'.$referralInfo.'</b></a>';
+                return '<a href="'.admin_url( 'admin.php?page=sbnepal-ms-agent&action=view&agent_id='.$item->id ).'" data-user-id="'.$item->id.'"><b title="Referred By">'.$referralInfo.'</b></a>';
 
             case 'phone_number':
                 return esc_html( get_the_author_meta( 'phone_number', $item->ID ) );
@@ -97,7 +97,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
 
             case 'commission':
 
-                $totalCommission = reset(sbnepal_ms_wallet_get_commission_sum($item->ID))->total_commission;
+                $totalCommission = reset(sbnepal_ms_wallet_get_commission_sum($item->ID))->total_unpaid_commission;
 
                 return 'NRS. '. ($totalCommission > 0 ? $totalCommission : 0);
 

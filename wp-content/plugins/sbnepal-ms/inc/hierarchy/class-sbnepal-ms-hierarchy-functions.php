@@ -78,11 +78,10 @@ function sbnepal_ms_insert_wallet_log( $args = array() ) {
 
     // remove row id to determine if new or update
     $row_id = (int) $args['id'];
+
     unset( $args['id'] );
 
     if ( ! $row_id ) {
-
-
 
         // insert a new
         if ( $wpdb->insert( $table_name, $args ) ) {

@@ -147,11 +147,38 @@ add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-setting"
 add_action("admin_print_styles-smart-business-in-nepal_page_sbnepal-ms-wallet", function () {
     wp_enqueue_style( 'wp-jquery-ui-dialog' );
     wp_enqueue_style('thickbox');
+    wp_enqueue_style(
+        'sbnepal_ms-toastr-css',
+        "//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    );
 });
 
 add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-wallet", function () {
     wp_enqueue_script( 'jquery-ui-dialog' );
     wp_enqueue_script('plugin-install');
+    wp_enqueue_script(
+        'sbnepal_ms-toastr-js',
+        '//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js',
+        array( 'jquery' )
+    );
+    wp_register_script(
+        'smart-business-in-nepal-custom-wallet-js',
+        plugins_url('sbnepal-ms/assets/js/agent-list.js'),
+        array( 'jquery' )
+    );
+
+    global $sbNepalBaseDir;
+
+    wp_localize_script(
+        'smart-business-in-nepal-custom-wallet-js',
+        'sbnepal_ajax_object', array(
+        'ajax_nonce' => wp_create_nonce('wps-frontend-sbnepal-ms-pay-agent'),
+        'sbnepal_ms_paying_agent_url' => $sbNepalBaseDir.'inc/xhr/sbnepal-ms-pay-agent-xhr.php'
+    ) );
+
+    wp_enqueue_script(
+        'smart-business-in-nepal-custom-wallet-js'
+    );
 });
 
 // Adding toastr to agent list
