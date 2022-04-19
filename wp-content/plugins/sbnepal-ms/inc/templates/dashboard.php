@@ -55,19 +55,26 @@
                         <tbody>
                             <tr>
                                 <td style="cursor:pointer;">
-                                    <small><code>[sbnepal-ms-login title="Login" register="/register"]</code></small>
+                                    <small><code>[sbnepal-ms-login title="Login" dashboard="/dashboard" register="/register"]</code></small>
                                 </td>
                                 <td>Login Form</td>
                             </tr>
                             <tr>
                                 <td style="cursor:pointer;">
-                                    <small><code>[sbnepal-ms-register title="Register" register="/login"]</code></small>
+                                    <small><code>[sbnepal-ms-register title="Register" dashboard="/dashboard" login="/login"]</code></small>
                                 </td>
                                 <td>Register Form</td>
                             </tr>
                             <tr>
                                 <td style="cursor:pointer;">
-                                    <small><code>[sbnepal-ms-guest title="SBNepal" login="/login" register="/register"]</code></small>
+                                    <small><code>[sbnepal-ms-guest title="SBNepal" dashboard="/dashboard" login="/login" register="/register]</code></small>
+                                </td>
+                                <td>Guest Form</td>
+                            </tr>
+
+                            <tr>
+                                <td style="cursor:pointer;">
+                                    <small><code>[sbnepal-ms-dashboard title="SBNepal" login="/login" register="/register"]</code></small>
                                 </td>
                                 <td>Guest Form</td>
                             </tr>

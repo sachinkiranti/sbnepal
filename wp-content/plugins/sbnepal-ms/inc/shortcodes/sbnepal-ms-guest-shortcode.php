@@ -11,9 +11,9 @@ if ( ! function_exists('sbnepal_ms_guest_shortcode') ) :
                 array(
                     'title'        => 'Smart Business In Nepal',
                     'tagline'      => 'Quality Businesses is our comment',
-                    'register' => null,
-                    'login' => null,
-                    'dashboard'    => '/dashboard',
+                    'login'        => get_option('sbnepal-ms_redirect-login', '/login'),
+                    'register'     => get_option('sbnepal-ms_redirect-register', '/register'),
+                    'dashboard'    => get_option('sbnepal-ms_redirect-dashboard', '/dashboard'),
                 ), $atts )
         );
 

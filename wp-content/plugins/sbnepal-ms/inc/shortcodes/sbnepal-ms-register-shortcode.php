@@ -10,8 +10,8 @@ if ( ! function_exists('sbnepal_ms_register_shortcode') ) :
         extract( shortcode_atts(
             array(
                 'title'        => 'Login Panel',
-                'login' => null,
-                'dashboard' => '/dashboard'
+                'login'        => get_option('sbnepal-ms_redirect-login', '/login'),
+                'dashboard'    => get_option('sbnepal-ms_redirect-dashboard', '/dashboard')
             ), $atts )
         );
 
