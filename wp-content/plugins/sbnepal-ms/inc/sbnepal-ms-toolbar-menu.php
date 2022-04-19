@@ -101,6 +101,18 @@ if (! function_exists('sbnepal_ms_toolbar_link')) :
         $wp_admin_bar->add_node($args);
 
         $args = array(
+            'id' => 'sbnepal_ms-setting-redirect',
+            'title' => 'Redirect',
+            'href' => admin_url( "admin.php?page=sbnepal-ms-setting&action=redirect" ),
+            'parent' => 'sbnepal_ms-setting',
+            'meta' => array(
+                'class' => 'sbnepal_ms-setting-redirect',
+                'title' => 'Visit Redirect Setting'
+            )
+        );
+        $wp_admin_bar->add_node($args);
+
+        $args = array(
             'id' => 'sbnepal_ms-setting-smtp',
             'title' => 'SMTP Setting',
             'href' => admin_url( "admin.php?page=sbnepal-ms-setting&action=smtp" ),
@@ -108,6 +120,30 @@ if (! function_exists('sbnepal_ms_toolbar_link')) :
             'meta' => array(
                 'class' => 'sbnepal_ms-setting-smtp',
                 'title' => 'Visit SMTP Setting'
+            )
+        );
+        $wp_admin_bar->add_node($args);
+
+        $args = array(
+            'id' => 'sbnepal_ms-frontend',
+            'title' => 'Frontend',
+            'href' => admin_url( "admin.php?page=sbnepal-ms-frontend" ),
+            'parent' => 'sbnepal_ms',
+            'meta' => array(
+                'class' => 'sbnepal_ms-frontend',
+                'title' => 'Visit Frontend'
+            )
+        );
+        $wp_admin_bar->add_node($args);
+
+        $args = array(
+            'id' => 'sbnepal_ms-frontend-dashboard',
+            'title' => 'Dashboard',
+            'href' => admin_url( "admin.php?page=sbnepal-ms-frontend" ),
+            'parent' => 'sbnepal_ms-frontend',
+            'meta' => array(
+                'class' => 'sbnepal_ms-frontend',
+                'title' => 'Visit Frontend'
             )
         );
         $wp_admin_bar->add_node($args);

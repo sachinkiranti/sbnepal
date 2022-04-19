@@ -93,6 +93,10 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
                 $template = dirname( __FILE__ ) . '/templates/setting/smtp-setting.php';
             }
 
+            if ($_GET['action'] === 'redirect') {
+                $template = dirname( __FILE__ ) . '/templates/setting/redirect-setting.php';
+            }
+
             if ( file_exists( $template ) ) {
                 include $template;
             }
