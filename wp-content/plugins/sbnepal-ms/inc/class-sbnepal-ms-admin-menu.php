@@ -46,7 +46,7 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
             );
 
             //  smart-business-in-nepal_page_sbnepal-ms-setting
-            $s = add_submenu_page(
+            add_submenu_page(
                 'sbnepal-ms',
                 __( 'Setting', 'sbnepal-ms' ),
                 __( 'Setting', 'sbnepal-ms' ),
@@ -54,7 +54,6 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
                 'sbnepal-ms-setting',
                 array( $this, 'resolve_setting_view' )
             );
-//            custom_dump($s);
         }
 
         public function resolve_views() {
@@ -89,6 +88,11 @@ if (! class_exists('SBNepal_MS_Admin_Menu') ) {
             global $sbNepalBaseDir;
 
             $template = dirname( __FILE__ ) . '/templates/setting/index.php';
+
+            if ($_GET['action'] === 'smtp') {
+                $template = dirname( __FILE__ ) . '/templates/setting/smtp-setting.php';
+            }
+
             if ( file_exists( $template ) ) {
                 include $template;
             }

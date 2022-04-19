@@ -44,7 +44,9 @@ if ( ! function_exists('sbnepal_ms_resolve_setting_data') ) :
             $value = stripslashes( $value );
 
             if(! $value ) {
-                $error[$column] = "Please enter your ". str_replace( '_', ' ', $column ) . '.';
+                if (!in_array($column, array('sbnepal-ms_smtp-auth', 'sbnepal-ms_smtp-port', 'sbnepal-ms_smtp-secure'))) {
+                    $error[$column] = "Please enter your ". str_replace( [ '_', '-' ], ' ', $column ) . '.';
+                }
             } else {
                 $data[$column]  = $value;
             }
@@ -72,9 +74,9 @@ if ( ! function_exists('sbnepal_ms_resolve_setting_data') ) :
 
                 if (! get_option($key)) {
                     // If option does not exists add option else update the option
-                    add_option( $key, sanitize_text_field($value) );
+                    add_option( $key, $value );
                 } else {
-                    update_option($key, sanitize_text_field($value));
+                    update_option($key, $value);
                 }
             }
         }
