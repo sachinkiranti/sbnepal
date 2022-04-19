@@ -45,6 +45,10 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
                 '{%agent_refer_id%}'    => $referId,
             ), get_option('sbnepal-ms_agent_activation_email_template'));
 
+        sbnepal_ms_response([
+            $message
+        ]);
+
         if (wp_mail($recipient, "Welcome to Smart Business in Nepal", $message)) {
             sbnepal_ms_response( array(
                 'message' => 'You have successfully sent the welcome email to the agent.',

@@ -89,6 +89,18 @@ if (! function_exists('sbnepal_ms_toolbar_link')) :
         $wp_admin_bar->add_node($args);
 
         $args = array(
+            'id' => 'sbnepal_ms-setting-general',
+            'title' => 'General',
+            'href' => admin_url( "admin.php?page=sbnepal-ms-setting" ),
+            'parent' => 'sbnepal_ms-setting',
+            'meta' => array(
+                'class' => 'sbnepal_ms-setting-general',
+                'title' => 'Visit SMTP Setting'
+            )
+        );
+        $wp_admin_bar->add_node($args);
+
+        $args = array(
             'id' => 'sbnepal_ms-setting-smtp',
             'title' => 'SMTP Setting',
             'href' => admin_url( "admin.php?page=sbnepal-ms-setting&action=smtp" ),
