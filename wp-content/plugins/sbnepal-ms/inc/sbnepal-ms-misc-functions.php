@@ -6,14 +6,14 @@ if (! function_exists('sbnepal_ms_send_smtp_email')) :
 
     function sbnepal_ms_send_smtp_email( $phpmailer ) {
         $phpmailer->isSMTP();
-        $phpmailer->Host       = SMTP_HOST;
-        $phpmailer->SMTPAuth   = SMTP_AUTH;
-        $phpmailer->Port       = SMTP_PORT;
-        $phpmailer->SMTPSecure = SMTP_SECURE;
-        $phpmailer->Username   = SMTP_USERNAME;
-        $phpmailer->Password   = SMTP_PASSWORD;
-        $phpmailer->From       = SMTP_FROM;
-        $phpmailer->FromName   = SMTP_FROMNAME;
+        $phpmailer->Host       = get_option("sbnepal-ms_smtp-host", 'server.sbnepal.com');
+        $phpmailer->SMTPAuth   = ((int) get_option("sbnepal-ms_smtp-auth", 1) );
+        $phpmailer->Port       = get_option("sbnepal-ms_smtp-port", '465');
+        $phpmailer->SMTPSecure = get_option("sbnepal-ms_smtp-secure", 'ssl');
+        $phpmailer->Username   = get_option("sbnepal-ms_smtp-username", 'sbnepal@gmail.com');
+        $phpmailer->Password   = get_option("sbnepal-ms_smtp-password");
+        $phpmailer->From       = get_option("sbnepal-ms_smtp-from", 'noreply@sbnepal.com');
+        $phpmailer->FromName   = get_option("sbnepal-ms_smtp-from-name", 'Smart Business in Nepal');
     }
 
 endif;
