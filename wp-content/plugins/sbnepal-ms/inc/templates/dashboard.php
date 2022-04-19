@@ -76,7 +76,7 @@
                                 <td style="cursor:pointer;">
                                     <small><code>[sbnepal-ms-dashboard title="SBNepal" login="/login" register="/register"]</code></small>
                                 </td>
-                                <td>Guest Form</td>
+                                <td>Dashboard Form</td>
                             </tr>
                         </tbody>
                     </table>
@@ -105,21 +105,27 @@
 
     <p>You can manage the agents and their commission using this plugin.</p>
 
+    <?php
+    $totalCommission = reset(sbnepal_ms_wallet_get_commission_sum(get_current_user_id()))->total_commission;
+
+    $commissionEarned =  ($totalCommission > 0 ? $totalCommission : 0);
+    ?>
+
     <div id="dashboard-widgets-wrap">
         <div id="postbox-container-1" class="postbox-container">
             <div class="card">
                 <h2 class="title">Total Commissions Earned</h2>
-                <p>NRS. <?php echo number_format(10000); ?></p>
+                <p>NRS. <?php echo number_format($commissionEarned); ?></p>
             </div>
         </div>
 
-        <div id="postbox-container-2" class="postbox-container">
-            <div class="card">
-                <h2 class="title">Today</h2>
-
-                <p>NRS. <?php echo number_format(500); ?></p>
-            </div>
-        </div>
+<!--        <div id="postbox-container-2" class="postbox-container">-->
+<!--            <div class="card">-->
+<!--                <h2 class="title">Today</h2>-->
+<!---->
+<!--                <p>NRS. --><?php //echo number_format(500); ?><!--</p>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 
 <!--    <div class="dashboard-widgets-wrap">-->

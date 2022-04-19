@@ -139,7 +139,7 @@ if (! function_exists('sbnepal_ms_toolbar_link')) :
         $args = array(
             'id' => 'sbnepal_ms-frontend-dashboard',
             'title' => 'Dashboard',
-            'href' => admin_url( "admin.php?page=sbnepal-ms-frontend" ),
+            'href' => site_url( get_option('sbnepal-ms_redirect-dashboard', '/dashboard') ),
             'parent' => 'sbnepal_ms-frontend',
             'meta' => array(
                 'class' => 'sbnepal_ms-frontend',
