@@ -64,12 +64,15 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
                 return '<button data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-pay-agent">Pay</button>';
 
             case 'action':
-                if (esc_html( get_the_author_meta( 'is_activated_by_admin', $item->ID ) )) {
-                    return 'Active';
-                }
                 global $sbNepalBaseDir;
 
-                return '<button data-action-url="'.$sbNepalBaseDir .'inc/xhr/sbnepal-ms-activate-agent-xhr.php" data-wpnonce="'.wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation').'" data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-activate-agent">Activate</button>'.
+                $activationBtn = '<button data-action-url="'.$sbNepalBaseDir .'inc/xhr/sbnepal-ms-activate-agent-xhr.php" data-wpnonce="'.wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation').'" data-agent-id="'.$item->ID.'" class="button action sbnepal-ms-activate-agent">Activate</button>';
+
+                if (esc_html( get_the_author_meta( 'is_approved_by_admin', $item->ID ) ) === 'yes') {
+                    $activationBtn = null;
+                }
+
+                return $activationBtn .
                     ' <a href="'.admin_url('admin.php?page=sbnepal-ms-agent&action=view&agent_id='.$item->ID).'" class="button action">View</a>';
 
             case 'father_name':

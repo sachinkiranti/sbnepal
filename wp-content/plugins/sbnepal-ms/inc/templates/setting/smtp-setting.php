@@ -58,7 +58,7 @@
 
                         <div class="input-text-wrap" id="sbnepal-ms-auth-wrap">
                             <label for="sbnepal-ms_first_level_commission" style="display: inline-block;margin-bottom: 4px;">
-                                SMTP Secure
+                                Encryption
                             </label> <br>
 
                             <?php $sslChecked = (get_option("sbnepal-ms_smtp-secure", 'ssl') ) === 'ssl' ? 'checked' : '' ?>

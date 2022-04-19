@@ -45,11 +45,15 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
                 '{%agent_refer_id%}'    => $referId,
             ), get_option('sbnepal-ms_agent_activation_email_template'));
 
-        sbnepal_ms_response([
-            $message
-        ]);
-
         if (wp_mail($recipient, "Welcome to Smart Business in Nepal", $message)) {
+
+            // Approved by admin
+            update_user_meta(
+                $user->ID,
+                'is_approved_by_admin',
+                'yes'
+            );
+
             sbnepal_ms_response( array(
                 'message' => 'You have successfully sent the welcome email to the agent.',
                 'status'  => 'success'
@@ -57,16 +61,6 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
         }
 
         sbnepal_ms_response( array(
-            'const'   => array(
-                'host' => SBNEPAL_MS_SMTP_HOST,
-                'auth' => SBNEPAL_MS_SMTP_AUTH,
-                'port' => SBNEPAL_MS_SMTP_PORT,
-                'secure' => SBNEPAL_MS_SMTP_SECURE,
-                'username' => SBNEPAL_MS_SMTP_USERNAME,
-                'password' => SBNEPAL_MS_SMTP_PASSWORD,
-                'sent_from' => SBNEPAL_MS_SMTP_FROM,
-                'sent_from_name' => SBNEPAL_MS_SMTP_FROM_NAME
-            ),
             'message' => 'Something went wrong while sending activation email to agent.',
             'status'  => 'invalid'
         ), false );

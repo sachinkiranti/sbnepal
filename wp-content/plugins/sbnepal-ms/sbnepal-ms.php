@@ -64,10 +64,6 @@ if ( ! function_exists('sbnepal_ms_db_init') ) :
 
 endif;
 
-// Config
-
-include 'sbnepal-ms-config.php';
-
 // Adding the Admin sidebar menu
 include  'inc/class-sbnepal-ms-admin-menu.php';
 
@@ -93,13 +89,18 @@ include 'inc/shortcodes/index.php';
 include 'inc/sbnepal-ms-misc-functions.php';
 
 add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'sbnepal_ms_add_plugin_page_settings_link');
-function sbnepal_ms_add_plugin_page_settings_link( $links ) {
-    return array_merge(array(
-        '<a href="' .
-        admin_url( 'admin.php?page=sbnepal-ms-setting' ) .
-        '">' . __('Setting') . '</a>',
-        '<a href="' .
-        admin_url( 'admin.php?page=sbnepal-ms' ) .
-        '">' . __('Dashboard') . '</a>'
-    ),  $links);
-}
+
+if (! function_exists('sbnepal_ms_add_plugin_page_settings_link')) :
+
+    function sbnepal_ms_add_plugin_page_settings_link( $links ) {
+        return array_merge(array(
+            '<a href="' .
+            admin_url( 'admin.php?page=sbnepal-ms-setting' ) .
+            '">' . __('Setting') . '</a>',
+            '<a href="' .
+            admin_url( 'admin.php?page=sbnepal-ms' ) .
+            '">' . __('Dashboard') . '</a>'
+        ),  $links);
+    }
+
+endif;

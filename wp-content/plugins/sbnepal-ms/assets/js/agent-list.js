@@ -34,6 +34,7 @@ $sbAgent(function () {
                 else if( response.data.status === "invalid" ) {
                     toastr.error(response.data.message, 'Smart Business In Nepal')
                 } else {
+                    $this.remove()
                     toastr.success(response.data.message, 'Smart Business In Nepal')
                 }
 
