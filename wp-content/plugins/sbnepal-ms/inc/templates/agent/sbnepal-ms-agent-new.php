@@ -7,6 +7,16 @@
 <div class="wrap sbnepal-ms-add-a-new-agent-wrapper">
     <h2><?php _e( 'Add A New Agent', 'sbnepal-ms' ); ?> <a href="<?php echo admin_url( 'admin.php?page=sbnepal-ms-agent' ); ?>" class="add-new-h2"><?php _e( 'List', 'sbnepal-ms' ); ?></a></h2>
 
+    <?php if ($_GET['message']) : ?>
+    <div class="notice notice-<?php echo $_GET['message']; ?> is-dismissible">
+        <?php if ($_GET['message'] === 'success') : ?>
+            <p>The agent is successfully created.</p>
+        <?php else : ?>
+            <p>Something went wrong! Please try it again.</p>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
+
     <div class="dashboard-widgets-wrap">
         <div class="metabox-holder">
             <div id="dashboard_activity" class="postbox ">
