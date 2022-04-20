@@ -18,7 +18,9 @@ if ( ! function_exists('sbnepal_ms_guest_shortcode') ) :
         );
 
         // If already logged in redirect to dashboard
-        if ( is_user_logged_in() ) {
+        global $pagenow;
+        
+        if ( is_user_logged_in() && $pagenow !== 'post.php' ) {
             wp_redirect($dashboard);
         }
 
@@ -29,7 +31,7 @@ if ( ! function_exists('sbnepal_ms_guest_shortcode') ) :
         include($file_path);
 
         $html = ob_get_contents();
-        ob_end_clean();
+        
         return $html;
     }
 

@@ -16,9 +16,12 @@ if ( ! function_exists('sbnepal_ms_dashboard_shortcode') ) :
         );
 
         // If user is not logged in redirect to login
-        if ( !is_user_logged_in() ) {
+        global $pagenow;
+        
+        if ( !is_user_logged_in() && $pagenow !== 'post.php' ) {
             wp_redirect($login);
         }
+
 
         $file_path = dirname(__FILE__) . '/../templates/frontend/dashboard/sbnepal-ms-frontend-dashboard.php';
 

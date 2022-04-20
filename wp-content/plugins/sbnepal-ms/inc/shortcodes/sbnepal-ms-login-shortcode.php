@@ -16,7 +16,9 @@ if ( ! function_exists('sbnepal_ms_login_shortcode') ) :
         );
 
         // If already logged in redirect to dashboard
-        if ( is_user_logged_in() ) {
+        global $pagenow;
+        
+        if ( $pagenow !== 'post.php' && is_user_logged_in() ) {
             wp_redirect($dashboard);
         }
 
