@@ -15,6 +15,12 @@ if ( ! function_exists('sbnepal_ms_dashboard_shortcode') ) :
             ), $atts )
         );
 
+        global $wp_customize;
+
+        if ( (defined( 'REST_REQUEST' ) && REST_REQUEST) || isset( $wp_customize ) ) {
+            return '[sbnepal-ms-dashboard title="'.$title.'" register="'.$register .'" login="'.$login.'"]';
+        }
+
         // If user is not logged in redirect to login
         global $pagenow;
         

@@ -192,7 +192,7 @@ add_action("admin_print_styles-smart-business-in-nepal_page_sbnepal-ms-agent", f
         "//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
     );
 
-    if ($_GET['action'] === 'new') {
+    if ($_GET['action'] === 'new' || $_GET['action'] === 'edit') {
         wp_enqueue_style(
             'sbnepal_ms-img-dropify-css',
             plugins_url('sbnepal-ms/assets/js/plugins/dropify/dropify.min.css')
@@ -207,7 +207,7 @@ add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-agent", 
         array( 'jquery' )
     );
 
-    if ($_GET['action'] === 'new') {
+    if ($_GET['action'] === 'new' || $_GET['action'] === 'edit') {
         wp_enqueue_script(
             'sbnepal_ms-img-dropify-js',
             plugins_url('sbnepal-ms/assets/js/plugins/dropify/dropify.min.js')
@@ -228,7 +228,9 @@ add_action("admin_print_scripts-smart-business-in-nepal_page_sbnepal-ms-agent", 
         'smart-business-in-nepal-custom-js',
         'sbnepal_ajax_object', array(
         'ajax_nonce' => wp_create_nonce('wps-frontend-sbnepal-ms-agent-activation'),
-        'sbnepal_ms_active_agent_url' => $sbNepalBaseDir.'inc/xhr/sbnepal-ms-activate-agent-xhr.php'
+        'ajax_nonce_reject' => wp_create_nonce('wps-frontend-sbnepal-ms-agent-reject'),
+        'sbnepal_ms_active_agent_url' => $sbNepalBaseDir.'inc/xhr/sbnepal-ms-activate-agent-xhr.php',
+        'sbnepal_ms_reject_agent_url' => $sbNepalBaseDir.'inc/xhr/sbnepal-ms-reject-agent-xhr.php'
     ) );
 
     wp_enqueue_script(

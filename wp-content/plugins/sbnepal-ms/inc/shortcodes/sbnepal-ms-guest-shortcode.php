@@ -17,6 +17,12 @@ if ( ! function_exists('sbnepal_ms_guest_shortcode') ) :
                 ), $atts )
         );
 
+        global $wp_customize;
+
+        if ( (defined( 'REST_REQUEST' ) && REST_REQUEST) || isset( $wp_customize ) ) {
+            return '[sbnepal-ms-guest title="'.$title.'" dashboard="'.$dashboard .'" login="'.$login.'" register="'.$register.'"]';
+        }
+
         // If already logged in redirect to dashboard
         global $pagenow;
         
@@ -31,7 +37,7 @@ if ( ! function_exists('sbnepal_ms_guest_shortcode') ) :
         include($file_path);
 
         $html = ob_get_contents();
-        
+        ob_end_clean();
         return $html;
     }
 

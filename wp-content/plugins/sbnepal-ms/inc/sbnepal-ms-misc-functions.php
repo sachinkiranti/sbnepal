@@ -3,7 +3,7 @@
 add_action( 'phpmailer_init', 'sbnepal_ms_send_smtp_email' );
 
 if (! function_exists('sbnepal_ms_send_smtp_email')) :
-
+ 
     function sbnepal_ms_send_smtp_email( $phpmailer ) {
         $phpmailer->isSMTP();
         $phpmailer->Host       = get_option("sbnepal-ms_smtp-host", 'server.sbnepal.com');

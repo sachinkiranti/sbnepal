@@ -29,6 +29,25 @@ if( ! wp_verify_nonce($_POST['_wpnonce'], 'wps-frontend-sbnepal-ms-agent-activat
 
 }
 
+if ( ! function_exists('sbnepal_ms_debug_wpmail') ) :
+
+	function sbnepal_ms_debug_wpmail( $result = false ) {
+
+		if ( $result )
+			return;
+
+		global $ts_mail_errors, $phpmailer;
+
+		if ( ! isset($ts_mail_errors) )
+			$ts_mail_errors = array();
+
+		if ( isset($phpmailer) )
+			$ts_mail_errors[] = $phpmailer->ErrorInfo;
+
+		return $ts_mail_errors;
+	}
+endif;
+
 if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
 
     function sbnepal_ms_resolve_agent_activation_data ( $formData ) {
@@ -45,7 +64,9 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
                 '{%agent_refer_id%}'    => $referId,
             ), get_option('sbnepal-ms_agent_activation_email_template'));
 
-        if (wp_mail($recipient, "Welcome to Smart Business in Nepal", $message)) {
+
+        $mailer = wp_mail($recipient, "Welcome to Smart Business in Nepal", $message);
+        if ($mailer) {
 
             // Approved by admin
             update_user_meta(
@@ -62,6 +83,7 @@ if ( ! function_exists('sbnepal_ms_resolve_agent_activation_data') ) :
 
         sbnepal_ms_response( array(
             'message' => 'Something went wrong while sending activation email to agent.',
+            'errors'  => sbnepal_ms_debug_wpmail($mailer),
             'status'  => 'invalid'
         ), false );
 

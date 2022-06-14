@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: SBNepal Management System
-Plugin URI: https://www.sachinkiranti.com/plugins/sbnepal-management-system/
+Plugin URI: https://www.raisachin.com.np/plugins/sbnepal-management-system/
 Description: SBNepal Management System plugin allows SBNepal to manage their agents and their commissions with their history.
 Version: 1.0.0
 Author: sachinkiranti

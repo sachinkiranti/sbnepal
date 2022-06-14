@@ -32,19 +32,20 @@ function sbnepal_ms_get_agent_count() {
 function sbnepal_ms_agent_insert_agent( $args = array() ) {
     global $wpdb;
 
-    $defaults = array();
+    $defaults = array(
+        'id'         => null
+    ); 
 
     $args       = wp_parse_args( $args, $defaults );
 
     $table_name = $wpdb->prefix . 'users';
     $metatable_name = $wpdb->prefix . 'usermeta';
 
-
     if (empty($args['referral_id'])){
         unset( $args['referral_id'] );
     }
 
-    foreach ($args as $key => $value) {
+    foreach (array_filter($args) as $key => $value) {
         if ( empty( $value ) ) {
             return new WP_Error( 'no-'.$key, __( 'No '.$key.' provided.', 'sbnepal-ms' ) );
         }
@@ -54,9 +55,10 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
     $row_id = (int) $args['id'];
     unset( $args['id'] );
 
-    $passport_size_photo = sbnepal_ms_upload($args['passport_size_photo'], 'Passport Size Photo');
-    $citizenship_photo = sbnepal_ms_upload($args['citizenship_photo'], 'Citizenship Photo');
-    $signature_photo = sbnepal_ms_upload($args['signature_photo'], 'Signature Photo');
+
+    $passport_size_photo =  $args['passport_size_photo'] ? sbnepal_ms_upload($args['passport_size_photo'], 'Passport Size Photo') : null;
+    $citizenship_photo = $args['citizenship_photo'] ? sbnepal_ms_upload($args['citizenship_photo'], 'Citizenship Photo') : null;
+    $signature_photo = $args['signature_photo'] ? sbnepal_ms_upload($args['signature_photo'], 'Signature Photo') : null;
 
     if ( ! $row_id ) {
 
@@ -76,23 +78,29 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
             $user->set_role('agent');
 
             // adding user metas for images
-            add_user_meta(
-                $user->ID,
-                'passport_size_photo',
-                $passport_size_photo
-            );
+            if ($passport_size_photo) {
+                add_user_meta(
+                    $user->ID,
+                    'passport_size_photo',
+                    $passport_size_photo
+                );
+            }
 
-            add_user_meta(
-                $user->ID,
-                'citizenship_photo',
-                $citizenship_photo
-            );
+            if ($citizenship_photo) {
+                add_user_meta(
+                    $user->ID,
+                    'citizenship_photo',
+                    $citizenship_photo
+                );
+            }
 
-            add_user_meta(
-                $user->ID,
-                'signature_photo',
-                $signature_photo
-            );
+            if ($signature_photo) {
+                add_user_meta(
+                    $user->ID,
+                    'signature_photo',
+                    $signature_photo
+                );
+            }
 
             add_user_meta(
                 $user->ID,
@@ -109,7 +117,8 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
                     'phone_number',
                     'qualification',
                     'is_approved_by_admin',
-                    'agent_added_by'
+                    'agent_added_by',
+                    'reject_information'
                 ) as $metaData) {
 
                 $metaValue = $args[$metaData];
@@ -145,10 +154,76 @@ function sbnepal_ms_agent_insert_agent( $args = array() ) {
     } else {
 
         // do update method here
-        if ( $wpdb->update( $table_name, $args, array( 'id' => $row_id ) ) ) {
+//        if ( $wpdb->update( $table_name, $args, array( 'id' => $row_id ) ) ) {
+
+            if ($passport_size_photo) {
+                update_user_meta(
+                    $row_id,
+                    'passport_size_photo',
+                    $passport_size_photo
+                );
+            }
+
+            if ($citizenship_photo) {
+                update_user_meta(
+                    $row_id,
+                    'citizenship_photo',
+                    $citizenship_photo
+                );
+            }
+
+            if ($signature_photo) {
+                update_user_meta(
+                    $row_id,
+                    'signature_photo',
+                    $signature_photo
+                );
+            }
+
+            foreach (
+                array(
+                    'referral_id',
+                    'father_name',
+                    'address',
+                    'citizenship_no',
+                    'phone_number',
+                    'qualification',
+                    'is_approved_by_admin',
+                    'agent_added_by',
+                    'reject_information'
+                ) as $metaData) {
+
+                $metaValue = $args[$metaData];
+
+                if ($metaData === 'is_approved_by_admin') {
+                    $metaValue = 'no'; // ie. yes = approved else pending, pending cannot login
+                }
+
+                if ($metaValue) {
+                    update_user_meta(
+                        $row_id,
+                        $metaData,
+                        $metaValue
+                    );
+                }
+
+            }
+
             return $row_id;
-        }
+//        }
     }
 
     return false;
+}
+
+/**
+ * Fetch a single result from database
+ *
+ * @param int   $id
+ *
+ * @return array
+ */
+function sbnepal_ms_get_agent( $id = 0 ) {
+    global $wpdb;
+    return $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'users WHERE id = %d', $id ) );
 }

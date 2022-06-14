@@ -64,9 +64,9 @@
                             <?php $sslChecked = (get_option("sbnepal-ms_smtp-secure", 'ssl') ) === 'ssl' ? 'checked' : '' ?>
                             <?php $tlsChecked = (get_option("sbnepal-ms_smtp-secure", 'ssl')) === 'tls' ? 'checked' : '' ?>
 
-                            <input <?php echo $sslChecked; ?> type="radio" value="1" placeholder="Enter the smtp secure" name="sbnepal-ms_smtp-secure" id="sbnepal-ms_smtp-secure-yes" autocomplete="off">
+                            <input <?php echo $sslChecked; ?> type="radio" value="ssl" placeholder="Enter the smtp secure" name="sbnepal-ms_smtp-secure" id="sbnepal-ms_smtp-secure-ssl" autocomplete="off">
                             <label for="sbnepal-ms_smtp-secure-ssl">SSL</label>
-                            <input <?php echo $tlsChecked; ?> type="radio" value="0" placeholder="Enter the smtp secure" name="sbnepal-ms_smtp-secure" id="sbnepal-ms_smtp-secure-tls" autocomplete="off">
+                            <input <?php echo $tlsChecked; ?> type="radio" value="tls" placeholder="Enter the smtp secure" name="sbnepal-ms_smtp-secure" id="sbnepal-ms_smtp-secure-tls" autocomplete="off">
                             <label for="sbnepal-ms_smtp-secure-tls">TLS</label>
                             <div class="sbnepal-ms_smtp-auth-error error-shown"></div>
                         </div>

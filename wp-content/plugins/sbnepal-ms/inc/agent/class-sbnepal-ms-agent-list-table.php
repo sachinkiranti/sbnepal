@@ -101,6 +101,28 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
 
                 return 'NRS. '. ($totalCommission > 0 ? $totalCommission : 0);
 
+            case 'agent_status':
+                $statusPlaceHolder = '';
+                $statusReason = '';
+                $statusStyle = 'text-decoration:underline;';
+                $status = esc_html( get_the_author_meta( 'is_approved_by_admin', $item->ID ));
+
+                switch ($status) :
+                    case 'yes':
+                        $statusPlaceHolder = 'Active';
+                        $statusStyle .= 'color:green;';
+                        break;
+                    case 'no':
+                        $statusPlaceHolder .= 'Pending';
+                        break;
+                    default:
+                        $statusPlaceHolder = 'Rejected';
+                        $statusStyle .= 'color:red;';
+                        $statusReason = '<br>' .wp_trim_words(esc_html( get_the_author_meta( 'reject_information', $item->ID )), 15);
+                 endswitch;
+
+                return '<label style="'.$statusStyle.'">'.$statusPlaceHolder.'</label>'. $statusReason;
+
             default:
                 return isset( $item->$column_name ) ? $item->$column_name : '';
         }
@@ -143,6 +165,7 @@ class SBNepal_MS_Agent_Table extends \WP_List_Table {
         if ($_GET['page'] === 'sbnepal-ms-agent') {
             $columns = array(
                 'commission' => __( 'Total Commission Earned', 'sbnepal-ms' ),
+                'agent_status' => __( 'Status', 'sbnepal-ms' ),
                 'action'        => __("Action", "sbnepal-ms")
             );
         }
